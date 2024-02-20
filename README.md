@@ -1,4 +1,4 @@
-![Alt text](https://drive.google.com/file/d/1wD3sjJXpTK3ki1EFNd2DNXyp0nMbk_zs/view?usp=sharing)
+![Alt text](./Team09/wwwroot/css/prodigy_scout_logo.png)
 # Prodigy Scout
 
 ## Team 09: Members
