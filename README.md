@@ -1,4 +1,4 @@
-![Alt text](./Team09/wwwroot/readme_logo.png)
+![Alt text](./Team09/wwwroot/readme_logo_x.png)
 # Prodigy Scout
 
 ## Team 09: Members
