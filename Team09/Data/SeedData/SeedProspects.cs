@@ -1,5 +1,6 @@
 ﻿using Team09.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using System.Reflection;
 using Team09.Data;
@@ -8,31 +9,48 @@ namespace Team09.Data.SeedData
 {
     public class SeedDatabase
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(IServiceProvider serviceProvider, Assembly assembly)
         {
-
             using var context = new Team09Context(serviceProvider.GetRequiredService<DbContextOptions<Team09Context>>());
 
             // Look for any Students.
             // NOTE:  Not robust enough yet.
-            if (context.Prospect.Any())
+            if (!context.Users.Any())
             {
-                return;
+                SeedUser(context, "recruiter1@example.com", "Test_1234", "Recruiter", "One");
+                SeedUser(context, "recruiter2@example.com", "Test_1234", "Recruiter", "Two");
+                SeedUser(context, "recruiter3@example.com", "Test_1234", "Recruiter", "Three");
+                context.SaveChanges();
             }
 
-            // Reference:
-            // https://stackoverflow.com/questions/3314140/how-to-read-embedded-resource-text-file
-            // 
-            //
+            if (!context.Prospect.Any())
+            {
+                SeedStudents(context, assembly);
+                context.SaveChanges();
+            }
+        }
 
-            var assembly = Assembly.GetExecutingAssembly();
+        private static void SeedUser(Team09Context context, string email, string password, string firstName, string lastName)
+        {
+            var user = new IdentityUser
+            {
+                UserName = email,
+                NormalizedUserName = email.ToUpper(),
+                Email = email,
+                NormalizedEmail = email.ToUpper(),
+                EmailConfirmed = true
+            };
 
-            // NOTE:
-            // Use the following to get the exact resource name
-            // to be assigned to the resourceName variable below.
-            //
-            //string[] resourceNames = assembly.GetManifestResourceNames();
+            PasswordHasher<IdentityUser> passwordHasher = new();
+            string passwordHash = passwordHasher.HashPassword(user, password);
+            user.PasswordHash = passwordHash;
 
+            context.Users.Add(user);
+        }
+
+        // var assembly = Assembly.GetExecutingAssembly();
+        private static void SeedStudents(Team09Context context, Assembly assembly)
+        {
             string resourceName = "Team09.Data.SeedData.Prospects.csv";
             string line;
 

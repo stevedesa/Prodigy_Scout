@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using Team09.Data;
 using Team09.Data.SeedData;
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    SeedDatabase.Initialize(services);
+    SeedDatabase.Initialize(services, Assembly.GetExecutingAssembly());
 }
 
 // Configure the HTTP request pipeline.
