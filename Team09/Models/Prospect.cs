@@ -4,11 +4,17 @@ namespace Team09.Models
 {
     public class Prospect
     {
+        [Required]
         public int Id { get; set; }
-        public string first_Name { get; set; }
-        public string last_Name { get; set; }
-        public string email { get; set; }
-        public string gender { get; set; }
+        [Required]
+        public string? first_Name { get; set; }
+        [Required]
+        public string? last_Name { get; set; }
+        [Required]
+        public string? email { get; set; }
+        [Required]
+        public string? gender { get; set; }
+        [Required]
         public float GPA { get; set; }
     }
 }
