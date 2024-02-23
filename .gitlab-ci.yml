@@ -1,0 +1,26 @@
+stages:
+  - build
+  - publish
+
+build:
+  stage: build
+  tags: 
+    - csc340
+  script:
+    - cd Team09
+    - dotnet restore
+    - dotnet build --configuration Release
+
+publish:
+  stage: publish
+  tags:
+    - csc340
+  only:
+    - main
+  script:
+    - cd Team09
+    - dotnet publish --configuration Release --output ./publish
+  artifacts:
+    paths:
+      - ./publish/*.*
+    expire_in: 1 week
