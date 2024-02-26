@@ -6,17 +6,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Team09.Data;
-using Team09.Models;
+using ProdigyScout.Data;
+using ProdigyScout.Models;
 
-namespace Team09.Controllers
+namespace ProdigyScout.Controllers
 {
     [Authorize]
     public class ProspectsController : Controller
     {
-        private readonly Team09Context _context;
+        private readonly ProdigyScoutContext _context;
 
-        public ProspectsController(Team09Context context)
+        public ProspectsController(ProdigyScoutContext context)
         {
             _context = context;
         }

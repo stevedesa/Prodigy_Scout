@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Team09.Migrations
+namespace ProdigyScout.Migrations
 {
     /// <inheritdoc />
     public partial class Project : Migration

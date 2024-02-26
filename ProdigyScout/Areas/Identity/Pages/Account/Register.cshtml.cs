@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
-namespace Team09.Areas.Identity.Pages.Account
+namespace ProdigyScout.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {

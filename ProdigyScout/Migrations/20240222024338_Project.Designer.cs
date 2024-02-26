@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Team09.Data;
+using ProdigyScout.Data;
 
 #nullable disable
 
-namespace Team09.Migrations
+namespace ProdigyScout.Migrations
 {
-    [DbContext(typeof(Team09Context))]
+    [DbContext(typeof(ProdigyScoutContext))]
     [Migration("20240222024338_Project")]
     partial class Project
     {
@@ -227,7 +227,7 @@ namespace Team09.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Team09.Models.Prospect", b =>
+            modelBuilder.Entity("ProdigyScout.Models.Prospect", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

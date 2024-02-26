@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Team09.Models;
+using ProdigyScout.Models;
 
-namespace Team09.Controllers
+namespace ProdigyScout.Controllers
 {
     public class HomeController : Controller
     {

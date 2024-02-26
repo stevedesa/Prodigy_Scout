@@ -1,4 +1,4 @@
-namespace Team09.Models
+namespace ProdigyScout.Models
 {
     public class ErrorViewModel
     {
