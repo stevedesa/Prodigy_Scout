@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Team09.Models;
+using ProdigyScout.Models;
 
-namespace Team09.Data;
+namespace ProdigyScout.Data;
 
-public class Team09Context : IdentityDbContext<IdentityUser>
+public class ProdigyScoutContext : IdentityDbContext<IdentityUser>
 {
-    public Team09Context(DbContextOptions<Team09Context> options)
+    public ProdigyScoutContext(DbContextOptions<ProdigyScoutContext> options)
         : base(options)
     {
     }
@@ -20,5 +20,5 @@ public class Team09Context : IdentityDbContext<IdentityUser>
         // Add your customizations after calling base.OnModelCreating(builder);
     }
 
-public DbSet<Team09.Models.Prospect> Prospect { get; set; } = default!;
+public DbSet<ProdigyScout.Models.Prospect> Prospect { get; set; } = default!;
 }

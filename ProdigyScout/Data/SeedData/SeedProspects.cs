@@ -1,17 +1,17 @@
-﻿using Team09.Models;
+﻿using ProdigyScout.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Diagnostics;
 using System.Reflection;
-using Team09.Data;
+using ProdigyScout.Data;
 
-namespace Team09.Data.SeedData
+namespace ProdigyScout.Data.SeedData
 {
     public class SeedDatabase
     {
         public static void Initialize(IServiceProvider serviceProvider, Assembly assembly)
         {
-            using var context = new Team09Context(serviceProvider.GetRequiredService<DbContextOptions<Team09Context>>());
+            using var context = new ProdigyScoutContext(serviceProvider.GetRequiredService<DbContextOptions<ProdigyScoutContext>>());
 
             // Look for any Students.
             // NOTE:  Not robust enough yet.
@@ -30,7 +30,7 @@ namespace Team09.Data.SeedData
             }
         }
 
-        private static void SeedUser(Team09Context context, string email, string password, string firstName, string lastName)
+        private static void SeedUser(ProdigyScoutContext context, string email, string password, string firstName, string lastName)
         {
             var user = new IdentityUser
             {
@@ -49,9 +49,9 @@ namespace Team09.Data.SeedData
         }
 
         // var assembly = Assembly.GetExecutingAssembly();
-        private static void SeedStudents(Team09Context context, Assembly assembly)
+        private static void SeedStudents(ProdigyScoutContext context, Assembly assembly)
         {
-            string resourceName = "Team09.Data.SeedData.Prospects.csv";
+            string resourceName = "ProdigyScout.Data.SeedData.Prospects.csv";
             string line;
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))

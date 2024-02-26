@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Team09.Models
+namespace ProdigyScout.Models
 {
     public class Prospect
     {

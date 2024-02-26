@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Team09.Data;
-using Team09.Data.SeedData;
+using ProdigyScout.Data;
+using ProdigyScout.Data.SeedData;
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("Team09ContextConnection") ?? throw new InvalidOperationException("Connection string 'Team09ContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("ProdigyScoutContextConnection") ?? throw new InvalidOperationException("Connection string 'ProdigyScoutContextConnection' not found.");
 
-builder.Services.AddDbContext<Team09Context>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ProdigyScoutContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<Team09Context>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ProdigyScoutContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
