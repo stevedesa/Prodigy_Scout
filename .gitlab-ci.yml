@@ -7,7 +7,7 @@ build:
   tags: 
     - csc340
   script:
-    - cd Team09
+    - cd ProdigyScout
     - dotnet restore
     - dotnet build --configuration Release
 
@@ -18,7 +18,7 @@ publish:
   only:
     - main
   script:
-    - cd Team09
+    - cd ProdigyScout
     - dotnet publish --configuration Release --output ./publish
   artifacts:
     paths:
