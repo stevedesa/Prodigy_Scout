@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using ProdigyScout.Data;
 using ProdigyScout.Models;
 using ProdigyScout.ViewModels;
@@ -68,18 +63,24 @@ namespace ProdigyScout.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,email,Gender,GPA")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,email,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
+                if (!studentViewModel.email.EndsWith(".com"))
+                {
+                    ModelState.AddModelError(string.Empty, "Only Email IDs from .com Domains are allowed.");
+                    return View(studentViewModel);
+                }
+
                 Prospect prospect = new()
                 {
                     FirstName = studentViewModel.FirstName.Trim(),
                     LastName = studentViewModel.LastName.Trim(),
                     email = studentViewModel.email.Trim(),
                     Gender = studentViewModel.Gender.Trim(),
-                    GPA = studentViewModel.GPA
-
+                    GPA = studentViewModel.GPA,
+                    GraduationDate = studentViewModel.GraduationDate
                 };
                 _context.Add(prospect);
                 await _context.SaveChangesAsync();
@@ -118,7 +119,7 @@ namespace ProdigyScout.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,email,Gender,GPA")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,email,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
         {
             if (id != studentViewModel.Id)
             {
@@ -136,11 +137,18 @@ namespace ProdigyScout.Controllers
                         return NotFound();
                     }
 
+                    if (!studentViewModel.email.EndsWith(".com"))
+                    {
+                        ModelState.AddModelError(string.Empty, "Only Email IDs from .com Domains are allowed.");
+                        return View(studentViewModel);
+                    }
+
                     prospect.FirstName = studentViewModel.FirstName.Trim();
                     prospect.LastName = studentViewModel.LastName.Trim();
                     prospect.email = studentViewModel.email.Trim();
                     prospect.Gender = studentViewModel.Gender.Trim();
                     prospect.GPA = studentViewModel.GPA;
+                    prospect.GraduationDate = studentViewModel.GraduationDate;
 
                     _context.Update(prospect);
                     await _context.SaveChangesAsync();
