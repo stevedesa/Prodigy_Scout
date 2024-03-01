@@ -1,4 +1,4 @@
-﻿@model ProdigyScout.Models.Prospect
+﻿@model ProdigyScout.ViewModels.StudentViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,16 +11,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.first_Name)
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.first_Name)
+            @Html.DisplayFor(model => model.FirstName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.last_Name)
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.last_Name)
+            @Html.DisplayFor(model => model.LastName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.email)
@@ -29,10 +29,10 @@
             @Html.DisplayFor(model => model.email)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.gender)
+            @Html.DisplayNameFor(model => model.Gender)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.gender)
+            @Html.DisplayFor(model => model.Gender)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.GPA)

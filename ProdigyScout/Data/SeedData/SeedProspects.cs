@@ -72,10 +72,10 @@ namespace ProdigyScout.Data.SeedData
                     context.Prospect.Add(
                         new Prospect
                         {
-                            first_Name = values[0],
-                            last_Name = values[1],
+                            FirstName = values[0],
+                            LastName = values[1],
                             email = values[2],
-                            gender = values[3],
+                            Gender = values[3],
                             GPA = float.Parse(values[4])
                         }
                     );

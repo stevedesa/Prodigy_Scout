@@ -12,8 +12,8 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240222024338_Project")]
-    partial class Project
+    [Migration("20240301154812_ProdigyScout")]
+    partial class ProdigyScout
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,19 +235,19 @@ namespace ProdigyScout.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<float>("GPA")
                         .HasColumnType("real");
 
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("first_Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("gender")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("last_Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
