@@ -60,7 +60,8 @@ namespace ProdigyScout.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GPA = table.Column<float>(type: "real", nullable: false)
+                    GPA = table.Column<float>(type: "real", nullable: false),
+                    GraduationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -8,5 +8,6 @@
         public string email { get; set; }
         public string Gender { get; set; }
         public float GPA { get; set; }
+        public DateTime GraduationDate { get; set; }
     }
 }

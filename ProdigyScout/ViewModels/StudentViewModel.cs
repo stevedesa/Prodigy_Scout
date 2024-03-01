@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
-using ProdigyScout.Models;
+﻿using ProdigyScout.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,8 +7,12 @@ namespace ProdigyScout.ViewModels
     public class StudentViewModel
     {
         public StudentViewModel() 
-        { 
-            //Empty Constructor
+        {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            Gender = string.Empty;
+            GPA = 0;
+            GraduationDate = DateTime.Today;
         }
 
         public StudentViewModel(Prospect student)
@@ -22,6 +25,7 @@ namespace ProdigyScout.ViewModels
                 email = student.email;
                 Gender = student.Gender;
                 GPA = student.GPA;
+                GraduationDate = student.GraduationDate;
             }
         }
 
@@ -46,6 +50,12 @@ namespace ProdigyScout.ViewModels
         [Required]
         [DisplayName("GPA")]
         public float GPA { get; set; }
+
+        [Required]
+        [DisplayName("Expected Graduation Date")]
+        [DataType(DataType.Date)]
+        public DateTime GraduationDate { get; set; }
+
 
         /*public string FullName
         {
