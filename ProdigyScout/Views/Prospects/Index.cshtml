@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProdigyScout.Models.Prospect>
+﻿@model ProdigyScout.ViewModels.StudentViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -33,19 +33,19 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Students) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.first_Name)
+                @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.last_Name)
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.gender)
+                @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.GPA)

@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using ProdigyScout.Data;
 using ProdigyScout.Models;
+using ProdigyScout.ViewModels;
 
 namespace ProdigyScout.Controllers
 {
@@ -22,33 +24,43 @@ namespace ProdigyScout.Controllers
         }
 
         // GET: Prospects
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(StudentViewModel studentViewModel)
         {
-            return View(await _context.Prospect.ToListAsync());
+            studentViewModel.Students = await _context.Prospect.ToListAsync();
+
+            return View(studentViewModel);
         }
 
         // GET: Prospects/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
+            StudentViewModel studentViewModel;
+
+            if (id == null || _context.Prospect == null)
             {
                 return NotFound();
             }
 
-            var prospect = await _context.Prospect
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var prospect = await _context.Prospect.FirstOrDefaultAsync(m => m.Id == id);
+
             if (prospect == null)
             {
                 return NotFound();
             }
+            else
+            {
+                studentViewModel = new(prospect);
+            }
 
-            return View(prospect);
+            return View(studentViewModel);
         }
 
         // GET: Prospects/Create
         public IActionResult Create()
         {
-            return View();
+            StudentViewModel studentViewModel = new();
+
+            return View(studentViewModel);
         }
 
         // POST: Prospects/Create
@@ -56,31 +68,49 @@ namespace ProdigyScout.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,first_Name,last_Name,email,gender,GPA")] Prospect prospect)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,email,Gender,GPA")] StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
+                Prospect prospect = new()
+                {
+                    FirstName = studentViewModel.FirstName.Trim(),
+                    LastName = studentViewModel.LastName.Trim(),
+                    email = studentViewModel.email.Trim(),
+                    Gender = studentViewModel.Gender.Trim(),
+                    GPA = studentViewModel.GPA
+
+                };
                 _context.Add(prospect);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(prospect);
+            return View(studentViewModel);
         }
 
         // GET: Prospects/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            StudentViewModel studentViewModel;
+
             if (id == null)
             {
                 return NotFound();
             }
 
             var prospect = await _context.Prospect.FindAsync(id);
+
             if (prospect == null)
             {
                 return NotFound();
             }
-            return View(prospect);
+            else
+            {
+                studentViewModel = new(prospect);
+            }
+
+            return View(studentViewModel);
         }
 
         // POST: Prospects/Edit/5
@@ -88,9 +118,9 @@ namespace ProdigyScout.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,first_Name,last_Name,email,gender,GPA")] Prospect prospect)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,email,Gender,GPA")] StudentViewModel studentViewModel)
         {
-            if (id != prospect.Id)
+            if (id != studentViewModel.Id)
             {
                 return NotFound();
             }
@@ -99,12 +129,25 @@ namespace ProdigyScout.Controllers
             {
                 try
                 {
+                    Prospect prospect = await _context.Prospect.FindAsync(studentViewModel.Id);
+
+                    if (prospect == null)
+                    {
+                        return NotFound();
+                    }
+
+                    prospect.FirstName = studentViewModel.FirstName.Trim();
+                    prospect.LastName = studentViewModel.LastName.Trim();
+                    prospect.email = studentViewModel.email.Trim();
+                    prospect.Gender = studentViewModel.Gender.Trim();
+                    prospect.GPA = studentViewModel.GPA;
+
                     _context.Update(prospect);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProspectExists(prospect.Id))
+                    if (!ProspectExists(studentViewModel.Id))
                     {
                         return NotFound();
                     }
@@ -115,25 +158,31 @@ namespace ProdigyScout.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(prospect);
+            return View(studentViewModel);
         }
 
         // GET: Prospects/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            StudentViewModel studentViewModel;
+
             if (id == null)
             {
                 return NotFound();
             }
 
-            var prospect = await _context.Prospect
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var prospect = await _context.Prospect.FirstOrDefaultAsync(m => m.Id == id);
+
             if (prospect == null)
             {
                 return NotFound();
             }
+            else
+            {
+                studentViewModel = new(prospect);
+            }
 
-            return View(prospect);
+            return View(studentViewModel);
         }
 
         // POST: Prospects/Delete/5
