@@ -4,7 +4,7 @@
 
 - Mason Myers & Steve de Sa
 
-![Alt text](./Team09/wwwroot/logo_head.png)
+![Alt text](./ProdigyScout/wwwroot/logo_head.png)
 
 ## Product Vision
 
