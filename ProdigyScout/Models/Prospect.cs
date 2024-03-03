@@ -9,5 +9,11 @@
         public string Gender { get; set; }
         public float GPA { get; set; }
         public DateTime GraduationDate { get; set; }
+
+        public string GraduationDateFormatted
+        {
+            get { return string.Concat(GraduationDate.ToString("MMM"), " ", GraduationDate.ToString("yyyy")); }
+        }
+
     }
 }

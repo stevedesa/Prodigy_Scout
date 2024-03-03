@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>cb059f64-ec7d-45b5-be23-28aeebde63d3</UserSecretsId>
+    <UserSecretsId>060dc80c-a7ee-4e29-a4c5-1e26e00f87b0</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +26,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
-    <PackageReference Include="SendGrid" Version="9.29.2" />
   </ItemGroup>
 
 </Project>
