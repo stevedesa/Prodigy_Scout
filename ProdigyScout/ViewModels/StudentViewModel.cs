@@ -56,6 +56,10 @@ namespace ProdigyScout.ViewModels
         [DataType(DataType.Date)]
         public DateTime GraduationDate { get; set; }
 
+        public string GraduationDateFormatted
+        {
+            get { return string.Concat(GraduationDate.ToString("MMM"), " ", GraduationDate.ToString("yyyy")); }
+        }
 
         /*public string FullName
         {

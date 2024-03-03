@@ -80,7 +80,7 @@ namespace ProdigyScout.Controllers
                     email = studentViewModel.email.Trim(),
                     Gender = studentViewModel.Gender.Trim(),
                     GPA = studentViewModel.GPA,
-                    GraduationDate = studentViewModel.GraduationDate
+                    GraduationDate = studentViewModel.GraduationDate.Date
                 };
                 _context.Add(prospect);
                 await _context.SaveChangesAsync();
