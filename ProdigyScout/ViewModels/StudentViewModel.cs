@@ -52,7 +52,7 @@ namespace ProdigyScout.ViewModels
         public float GPA { get; set; }
 
         [Required]
-        [DisplayName("Expected Graduation Date")]
+        [DisplayName("Graduation Date")]
         [DataType(DataType.Date)]
         public DateTime GraduationDate { get; set; }
 
