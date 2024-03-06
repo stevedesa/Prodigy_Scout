@@ -24,10 +24,10 @@
     <thead>
         <tr>
             <th>
-                First Name
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["FirstNameSortParm"]">@Html.DisplayNameFor(model => model.FirstName)</a>
             </th>
             <th>
-                Last Name
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["LastNameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
             </th>
             <th>
                 Email ID
@@ -36,10 +36,10 @@
                 Gender
             </th>
             <th>
-                GPA
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["GPASortParm"]">@Html.DisplayNameFor(model => model.GPA)</a>
             </th>
             <th>
-                Graduation Date
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["GraduationDateSortParm"]">@Html.DisplayNameFor(model => model.GraduationDate)</a>
             </th>
             <th>
                 Edit | Details | Delete
