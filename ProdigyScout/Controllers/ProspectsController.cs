@@ -19,11 +19,44 @@ namespace ProdigyScout.Controllers
         }
 
         // GET: Prospects
-        public async Task<IActionResult> Index(StudentViewModel studentViewModel)
+        public async Task<IActionResult> Index(string First, string Last, string GradePoint)
         {
-            studentViewModel.Students = await _context.Prospect.ToListAsync();
+            if (_context.Prospect == null)
+            {
+                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+            }
 
-            return View(studentViewModel);
+            var Student = from m in _context.Prospect
+                         select m;
+
+            if (!String.IsNullOrEmpty(First) && !String.IsNullOrEmpty(Last) && !String.IsNullOrEmpty(GradePoint))
+            {
+                Student = Student.Where(s => s.FirstName!.Contains(First) && s.LastName!.Contains(Last) && s.GPA > float.Parse(GradePoint));
+                Student = Student.OrderByDescending(s => s.GPA);
+            }
+            else
+            {
+                if (!String.IsNullOrEmpty(First))
+                {
+                    Student = Student.Where(s => s.FirstName!.Contains(First));
+                }
+                if (!String.IsNullOrEmpty(Last))
+                {
+                    Student = Student.Where(s => s.LastName!.Contains(Last));
+                }
+                if (!String.IsNullOrEmpty(GradePoint))
+                {
+                    Student = Student.Where(s => s.GPA > float.Parse(GradePoint));
+                    Student = Student.OrderByDescending(s => s.GPA);
+                }
+            }
+
+            var studentsVM = new StudentViewModel
+            {
+                Students = await Student.ToListAsync()
+            };
+
+            return View(studentsVM);
         }
 
         // GET: Prospects/Details/5
