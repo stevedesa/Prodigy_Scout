@@ -9,6 +9,16 @@
 <p>
     <a asp-action="Create">Create New Student</a>
 </p>
+
+<form asp-controller="Prospects" asp-action="Index">
+    <p>
+        First Name: <input type="text" name="First" />
+        Last Name: <input type="text" name="Last" />
+        GPA Floor: <input type="text" name="GradePoint" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
