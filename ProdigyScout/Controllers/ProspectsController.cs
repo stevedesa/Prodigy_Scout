@@ -19,7 +19,7 @@ namespace ProdigyScout.Controllers
         }
 
         // GET: Prospects
-        public async Task<IActionResult> Index(string First, string Last, string GradePoint)
+        public async Task<IActionResult> Index(string First, string Last, string GradePoint, string GradYear)
         {
             if (_context.Prospect == null)
             {
@@ -29,6 +29,7 @@ namespace ProdigyScout.Controllers
             var Student = from m in _context.Prospect
                          select m;
 
+            //Allows the user to filter by First Name, Last Name, and GPA Floor
             if (!String.IsNullOrEmpty(First) && !String.IsNullOrEmpty(Last) && !String.IsNullOrEmpty(GradePoint))
             {
                 Student = Student.Where(s => s.FirstName!.Contains(First) && s.LastName!.Contains(Last) && s.GPA > float.Parse(GradePoint));
@@ -49,6 +50,13 @@ namespace ProdigyScout.Controllers
                     Student = Student.Where(s => s.GPA > float.Parse(GradePoint));
                     Student = Student.OrderByDescending(s => s.GPA);
                 }
+            }
+
+            //Search By Graduation Date
+            if (!String.IsNullOrEmpty(GradYear))
+            {
+                Student = Student.Where(s => s.GraduationDate > DateTime.Parse(GradYear));
+                Student = Student.OrderBy(s => s.GraduationDate);
             }
 
             var studentsVM = new StudentViewModel

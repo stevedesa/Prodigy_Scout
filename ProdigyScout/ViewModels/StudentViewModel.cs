@@ -72,5 +72,7 @@ namespace ProdigyScout.ViewModels
         public string? Last { get; set; }
         public string? GradePoint { get; set; }
 
+        public string? GradYear { get; set; }
+
     }
 }
