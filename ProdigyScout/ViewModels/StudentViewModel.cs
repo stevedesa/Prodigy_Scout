@@ -68,11 +68,10 @@ namespace ProdigyScout.ViewModels
 
         // Helper Attributes
         public IEnumerable<Prospect> Students { get; set; }
-        public string? First { get; set; }
-        public string? Last { get; set; }
-        public string? GradePoint { get; set; }
-
-        public string? GradYear { get; set; }
+        public string First { get; set; }
+        public string Last { get; set; }
+        public string GradePoint { get; set; }
+        public string GradYear { get; set; }
 
     }
 }

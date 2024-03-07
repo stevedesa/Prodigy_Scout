@@ -77,6 +77,7 @@ namespace ProdigyScout.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
+            [RegularExpression(@"^[^@]+@[^@]+\.com$", ErrorMessage = "Email must be apart of .com domain")]
             public string Email { get; set; }
 
             /// <summary>
