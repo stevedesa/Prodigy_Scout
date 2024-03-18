@@ -61,11 +61,6 @@ namespace ProdigyScout.ViewModels
             get { return string.Concat(GraduationDate.ToString("MMM"), " ", GraduationDate.ToString("yyyy")); }
         }
 
-        /*public string FullName
-        {
-            get { return string.Concat(FirstName, " ", LastName); }
-        }*/
-
         // Helper Attributes
         public IEnumerable<Prospect> Students { get; set; }
         public string First { get; set; }
