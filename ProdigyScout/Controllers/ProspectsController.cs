@@ -19,8 +19,16 @@ namespace ProdigyScout.Controllers
         }
 
         // GET: Prospects
-        public async Task<IActionResult> Index(string First, string Last, string GradePoint, string GradYear, string sortOrder)
+        public async Task<IActionResult> Index(StudentViewModel studentViewModel)
         {
+
+            string FirstName = studentViewModel.FirstNameSearch;
+            string LastName = studentViewModel.LastNameSearch;
+            string GradePoint = studentViewModel.GradePointSearch;
+            string GradYear = studentViewModel.GradYearSearch;
+
+
+/*
             if (_context.Prospect == null)
             {
                 return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
@@ -29,12 +37,12 @@ namespace ProdigyScout.Controllers
             ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "-FirstName" : "FirstName";
             ViewData["LastNameSortParm"] = sortOrder == "LastName" ? "-LastName" : "LastName";
             ViewData["GPASortParm"] = sortOrder == "GPA" ? "-GPA" : "GPA";
-            ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "-GraduationDate" : "GraduationDate";
+            ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "-GraduationDate" : "GraduationDate";*/
 
             var studentQuery = from s in _context.Prospect
                                select s;
 
-            switch (sortOrder)
+           /* switch (sortOrder)
             {
                 case "FirstName":
                     studentQuery = studentQuery.OrderBy(s => s.FirstName);
@@ -63,25 +71,25 @@ namespace ProdigyScout.Controllers
                 default:
                     studentQuery = studentQuery.OrderByDescending(s => s.GPA); // Default to sorting by GPA descending
                     break;
-            }
+            }*/
 
             var Student = from m in _context.Prospect select m;
 
             //Allows the user to filter by First Name, Last Name, and GPA Floor
-            if (!String.IsNullOrEmpty(First) && !String.IsNullOrEmpty(Last) && !String.IsNullOrEmpty(GradePoint))
+            if (!String.IsNullOrEmpty(FirstName) && !String.IsNullOrEmpty(LastName) && !String.IsNullOrEmpty(GradePoint))
             {
-                studentQuery = studentQuery.Where(s => s.FirstName!.Contains(First) && s.LastName!.Contains(Last) && s.GPA > float.Parse(GradePoint));
+                studentQuery = studentQuery.Where(s => s.FirstName!.Contains(FirstName) && s.LastName!.Contains(LastName) && s.GPA > float.Parse(GradePoint));
                 studentQuery = studentQuery.OrderByDescending(s => s.GPA);
             }
             else
             {
-                if (!String.IsNullOrEmpty(First))
+                if (!String.IsNullOrEmpty(FirstName))
                 {
-                    studentQuery = studentQuery.Where(s => s.FirstName!.Contains(First));
+                    studentQuery = studentQuery.Where(s => s.FirstName!.Contains(FirstName));
                 }
-                if (!String.IsNullOrEmpty(Last))
+                if (!String.IsNullOrEmpty(LastName))
                 {
-                    studentQuery = studentQuery.Where(s => s.LastName!.Contains(Last));
+                    studentQuery = studentQuery.Where(s => s.LastName!.Contains(LastName));
                 }
                 if (!String.IsNullOrEmpty(GradePoint))
                 {
