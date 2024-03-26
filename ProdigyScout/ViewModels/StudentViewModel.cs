@@ -22,7 +22,7 @@ namespace ProdigyScout.ViewModels
                 Id = student.Id;
                 FirstName = student.FirstName;
                 LastName = student.LastName;
-                email = student.email;
+                EmailID = student.email;
                 Gender = student.Gender;
                 GPA = student.GPA;
                 GraduationDate = student.GraduationDate;
@@ -41,7 +41,7 @@ namespace ProdigyScout.ViewModels
 
         [Required]
         [DisplayName("Email ID")]
-        public string email { get; set; }
+        public string EmailID { get; set; }
 
         [Required]
         [DisplayName("Gender")]
@@ -63,6 +63,7 @@ namespace ProdigyScout.ViewModels
 
         // Helper Attributes
         public IEnumerable<Prospect> Students { get; set; }
+        public string FullNameSearch { get; set; }
         public string FirstNameSearch { get; set; }
         public string LastNameSearch { get; set; }
         public string GradePointSearch { get; set; }

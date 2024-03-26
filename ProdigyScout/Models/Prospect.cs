@@ -14,6 +14,5 @@
         {
             get { return string.Concat(GraduationDate.ToString("MMM"), " ", GraduationDate.ToString("yyyy")); }
         }
-
     }
 }

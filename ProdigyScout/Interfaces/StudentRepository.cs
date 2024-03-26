@@ -28,7 +28,7 @@ namespace ProdigyScout.Interfaces
             }
         }
 
-        public async Task<IList<Prospect>> GetStudents(string firstName, string lastName, string gpa, string gradYear, string sortOrder)
+        public async Task<IList<Prospect>> GetStudents(string fullNameSearch, string firstName, string lastName, string gpa, string gradYear, string sortOrder)
         {
             var students = _context.Prospect.AsQueryable();
 
@@ -40,6 +40,11 @@ namespace ProdigyScout.Interfaces
             if (!string.IsNullOrEmpty(lastName))
             {
                 students = students.Where(s => s.LastName.Contains(lastName));
+            }
+
+            if (!string.IsNullOrEmpty(fullNameSearch))
+            {
+                students = students.Where(s => (s.FirstName + " " + s.LastName).Contains(fullNameSearch));
             }
 
             if (!string.IsNullOrEmpty(gpa))
@@ -86,7 +91,7 @@ namespace ProdigyScout.Interfaces
             {
                 FirstName = studentViewModel.FirstName.Trim(),
                 LastName = studentViewModel.LastName.Trim(),
-                email = studentViewModel.email.Trim(),
+                email = studentViewModel.EmailID.Trim(),
                 Gender = studentViewModel.Gender.Trim(),
                 GPA = studentViewModel.GPA,
                 GraduationDate = studentViewModel.GraduationDate.Date
@@ -109,7 +114,7 @@ namespace ProdigyScout.Interfaces
 
             prospect.FirstName = studentViewModel.FirstName.Trim();
             prospect.LastName = studentViewModel.LastName.Trim();
-            prospect.email = studentViewModel.email.Trim();
+            prospect.email = studentViewModel.EmailID.Trim();
             prospect.Gender = studentViewModel.Gender.Trim();
             prospect.GPA = studentViewModel.GPA;
             prospect.GraduationDate = studentViewModel.GraduationDate;
