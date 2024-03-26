@@ -18,6 +18,7 @@ namespace ProdigyScout.Controllers
         // GET: Prospects
         public async Task<IActionResult> Index(StudentViewModel studentViewModel, string sortOrder)
         {
+            string FullNameSearch = studentViewModel.FullNameSearch;
             string FirstName = studentViewModel.FirstNameSearch;
             string LastName = studentViewModel.LastNameSearch;
             string GPA = studentViewModel.GradePointSearch;
@@ -28,7 +29,7 @@ namespace ProdigyScout.Controllers
             ViewData["GPASortParm"] = sortOrder == "GPA" ? "GPA_desc" : "GPA";
             ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "GraduationDate_desc" : "GraduationDate";
 
-            var students = await _studentRepository.GetStudents(FirstName, LastName, GPA, GradYear, sortOrder);
+            var students = await _studentRepository.GetStudents(FullNameSearch, FirstName, LastName, GPA, GradYear, sortOrder);
 
             var studentsVM = new StudentViewModel
             {
@@ -60,7 +61,7 @@ namespace ProdigyScout.Controllers
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
-                email = student.email,
+                EmailID = student.email,
                 GPA = student.GPA,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate
@@ -82,7 +83,7 @@ namespace ProdigyScout.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!studentViewModel.email.EndsWith(".com"))
+                if (!studentViewModel.EmailID.EndsWith(".com"))
                 {
                     ModelState.AddModelError(string.Empty, "Only Email IDs from .com Domains are allowed.");
                     return View(studentViewModel);
@@ -120,7 +121,7 @@ namespace ProdigyScout.Controllers
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
-                email = student.email,
+                EmailID = student.email,
                 GPA = student.GPA,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate
@@ -173,7 +174,7 @@ namespace ProdigyScout.Controllers
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
-                email = student.email,
+                EmailID = student.email,
                 GPA = student.GPA,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate
