@@ -19,96 +19,73 @@ namespace ProdigyScout.Controllers
         }
 
         // GET: Prospects
-        public async Task<IActionResult> Index(StudentViewModel studentViewModel)
+        public async Task<IActionResult> Index(StudentViewModel studentViewModel, string sortOrder)
         {
-
             string FirstName = studentViewModel.FirstNameSearch;
             string LastName = studentViewModel.LastNameSearch;
-            string GradePoint = studentViewModel.GradePointSearch;
+            string GPA = studentViewModel.GradePointSearch;
             string GradYear = studentViewModel.GradYearSearch;
 
+            ViewData["FirstNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "FirstName" : "";
+            ViewData["LastNameSortParm"] = sortOrder == "LastName" ? "LastName_desc" : "LastName";
+            ViewData["GPASortParm"] = sortOrder == "GPA" ? "GPA_desc" : "GPA";
+            ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "GraduationDate_desc" : "GraduationDate";
 
-/*
-            if (_context.Prospect == null)
+            var studentQuery = _context.Prospect.AsQueryable();
+
+            if (!String.IsNullOrEmpty(FirstName))
             {
-                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
+                studentQuery = studentQuery.Where(s => s.FirstName!.Contains(FirstName));
             }
-
-            ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "-FirstName" : "FirstName";
-            ViewData["LastNameSortParm"] = sortOrder == "LastName" ? "-LastName" : "LastName";
-            ViewData["GPASortParm"] = sortOrder == "GPA" ? "-GPA" : "GPA";
-            ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "-GraduationDate" : "GraduationDate";*/
-
-            var studentQuery = from s in _context.Prospect
-                               select s;
-
-           /* switch (sortOrder)
+            if (!String.IsNullOrEmpty(LastName))
             {
-                case "FirstName":
-                    studentQuery = studentQuery.OrderBy(s => s.FirstName);
-                    break;
-                case "-FirstName":
-                    studentQuery = studentQuery.OrderByDescending(s => s.FirstName);
-                    break;
-                case "LastName":
-                    studentQuery = studentQuery.OrderBy(s => s.LastName);
-                    break;
-                case "-LastName":
-                    studentQuery = studentQuery.OrderByDescending(s => s.LastName);
-                    break;
-                case "GPA":
-                    studentQuery = studentQuery.OrderBy(s => s.GPA);
-                    break;
-                case "-GPA":
-                    studentQuery = studentQuery.OrderByDescending(s => s.GPA);
-                    break;
-                case "GraduationDate":
-                    studentQuery = studentQuery.OrderBy(s => s.GraduationDate);
-                    break;
-                case "-GraduationDate":
-                    studentQuery = studentQuery.OrderByDescending(s => s.GraduationDate);
-                    break;
-                default:
-                    studentQuery = studentQuery.OrderByDescending(s => s.GPA); // Default to sorting by GPA descending
-                    break;
-            }*/
-
-            var Student = from m in _context.Prospect select m;
-
-            //Allows the user to filter by First Name, Last Name, and GPA Floor
-            if (!String.IsNullOrEmpty(FirstName) && !String.IsNullOrEmpty(LastName) && !String.IsNullOrEmpty(GradePoint))
+                studentQuery = studentQuery.Where(s => s.LastName!.Contains(LastName));
+            }
+            if (!String.IsNullOrEmpty(GPA))
             {
-                studentQuery = studentQuery.Where(s => s.FirstName!.Contains(FirstName) && s.LastName!.Contains(LastName) && s.GPA > float.Parse(GradePoint));
+                studentQuery = studentQuery.Where(s => s.GPA > float.Parse(GPA));
                 studentQuery = studentQuery.OrderByDescending(s => s.GPA);
             }
-            else
-            {
-                if (!String.IsNullOrEmpty(FirstName))
-                {
-                    studentQuery = studentQuery.Where(s => s.FirstName!.Contains(FirstName));
-                }
-                if (!String.IsNullOrEmpty(LastName))
-                {
-                    studentQuery = studentQuery.Where(s => s.LastName!.Contains(LastName));
-                }
-                if (!String.IsNullOrEmpty(GradePoint))
-                {
-                    studentQuery = studentQuery.Where(s => s.GPA > float.Parse(GradePoint));
-                    studentQuery = studentQuery.OrderByDescending(s => s.GPA);
-                }
-            }
-
-            //Search By Graduation Date
             if (!String.IsNullOrEmpty(GradYear))
             {
                 studentQuery = studentQuery.Where(s => s.GraduationDate > DateTime.Parse(GradYear));
                 studentQuery = studentQuery.OrderBy(s => s.GraduationDate);
             }
 
+            switch (sortOrder)
+            {
+                case "FirstName":
+                    studentQuery = studentQuery.OrderBy(s => s.FirstName);
+                    break;
+                case "LastName_desc":
+                    studentQuery = studentQuery.OrderByDescending(s => s.LastName);
+                    break;
+                case "LastName":
+                    studentQuery = studentQuery.OrderBy(s => s.LastName);
+                    break;
+                case "GPA_desc":
+                    studentQuery = studentQuery.OrderByDescending(s => s.GPA);
+                    break;
+                case "GPA":
+                    studentQuery = studentQuery.OrderBy(s => s.GPA);
+                    break;
+                case "GraduationDate_desc":
+                    studentQuery = studentQuery.OrderByDescending(s => s.GraduationDate);
+                    break;
+                case "GraduationDate":
+                    studentQuery = studentQuery.OrderBy(s => s.GraduationDate);
+                    break;
+                default:
+                    studentQuery = studentQuery.OrderByDescending(s => s.GPA);
+                    break;
+            }
+
             var studentsVM = new StudentViewModel
             {
                 Students = await studentQuery.ToListAsync()
             };
+
+            ViewData["CurrentSort"] = sortOrder;
 
             return View(studentsVM);
         }
