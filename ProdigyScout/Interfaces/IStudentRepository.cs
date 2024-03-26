@@ -1,15 +1,15 @@
-﻿/*using ProdigyScout.ViewModels;
+﻿using ProdigyScout.ViewModels;
 using ProdigyScout.Models;
+using ProdigyScout.Helpers;
 
 namespace ProdigyScout.Interfaces
 {
     public interface IStudentRepository : IDisposable
     {
-        IEnumerable<Student> GetStudents();
-        Student GetStudentByID(int studentId);
-        void InsertStudent(Student student);
-        void DeleteStudent(int studentID);
-        void UpdateStudent(Student student);
-        void Save();
+        Task<IList<Prospect>> GetStudents(string firstName, string lastName, string gpa, string gradYear, string sortOrder);
+        Task<Prospect> GetStudentByID(int studentId);
+        Task<Prospect> InsertStudent(StudentViewModel studentViewModel);
+        Task<Prospect> UpdateStudent(StudentViewModel studentViewModel);
+        Task DeleteStudent(int studentID);
     }
-}*/
+}

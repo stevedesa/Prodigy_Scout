@@ -8,6 +8,8 @@
             FirstNameDESC,
             LastNameASC,
             LastNameDESC,
+            GPAASC,
+            GPADESC,
             GraduationDateASC,
             GraduationDateDESC
         }

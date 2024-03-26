@@ -5,6 +5,7 @@ using System.Reflection;
 using ProdigyScout.Data;
 using ProdigyScout.Data.SeedData;
 using ProdigyScout.Services;
+using ProdigyScout.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProdigyScoutContextConnection") ?? throw new InvalidOperationException("Connection string 'ProdigyScoutContextConnection' not found.");
@@ -16,8 +17,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// SendGrid Email Service Config.
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
+
+// Repository Pattern.
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 var app = builder.Build();
 
