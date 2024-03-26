@@ -55,7 +55,18 @@ namespace ProdigyScout.Controllers
                 return NotFound();
             }
 
-            return View(student);
+            var studentViewModel = new StudentViewModel
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                email = student.email,
+                GPA = student.GPA,
+                Gender = student.Gender,
+                GraduationDate = student.GraduationDate
+            };
+
+            return View(studentViewModel);
         }
 
         // GET: Prospects/Create
@@ -104,7 +115,18 @@ namespace ProdigyScout.Controllers
                 return NotFound();
             }
 
-            return View(student);
+            var studentViewModel = new StudentViewModel
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                email = student.email,
+                GPA = student.GPA,
+                Gender = student.Gender,
+                GraduationDate = student.GraduationDate
+            };
+
+            return View(studentViewModel);
         }
 
         // POST: Prospects/Edit/5
@@ -146,7 +168,18 @@ namespace ProdigyScout.Controllers
                 return NotFound();
             }
 
-            return View(student);
+            var studentViewModel = new StudentViewModel
+            {
+                Id = student.Id,
+                FirstName = student.FirstName,
+                LastName = student.LastName,
+                email = student.email,
+                GPA = student.GPA,
+                Gender = student.Gender,
+                GraduationDate = student.GraduationDate
+            };
+
+            return View(studentViewModel);
         }
 
         // POST: Prospects/Delete/5
