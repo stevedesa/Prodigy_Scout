@@ -3,112 +3,50 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProdigyScout.Data;
+using ProdigyScout.Interfaces;
 using ProdigyScout.Models;
 using ProdigyScout.ViewModels;
+using SendGrid.Helpers.Mail;
 
 namespace ProdigyScout.Controllers
 {
     [Authorize]
     public class ProspectsController : Controller
     {
-        private readonly ProdigyScoutContext _context;
-
-        public ProspectsController(ProdigyScoutContext context)
+        //private readonly ProdigyScoutContext _context;
+        /*public ProspectsController(ProdigyScoutContext context)
         {
             _context = context;
+        }*/
+
+        private readonly IStudentRepository _studentRepository;
+
+        public ProspectsController(IStudentRepository studentRepository)
+        {
+            _studentRepository = studentRepository;
         }
 
         // GET: Prospects
-        public async Task<IActionResult> Index(StudentViewModel studentViewModel)
+        public async Task<IActionResult> Index(StudentViewModel studentViewModel, string sortOrder)
         {
-
             string FirstName = studentViewModel.FirstNameSearch;
             string LastName = studentViewModel.LastNameSearch;
-            string GradePoint = studentViewModel.GradePointSearch;
+            string GPA = studentViewModel.GradePointSearch;
             string GradYear = studentViewModel.GradYearSearch;
 
+            ViewData["FirstNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "FirstName" : "";
+            ViewData["LastNameSortParm"] = sortOrder == "LastName" ? "LastName_desc" : "LastName";
+            ViewData["GPASortParm"] = sortOrder == "GPA" ? "GPA_desc" : "GPA";
+            ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "GraduationDate_desc" : "GraduationDate";
 
-/*
-            if (_context.Prospect == null)
-            {
-                return Problem("Entity set 'MvcMovieContext.Movie'  is null.");
-            }
-
-            ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "-FirstName" : "FirstName";
-            ViewData["LastNameSortParm"] = sortOrder == "LastName" ? "-LastName" : "LastName";
-            ViewData["GPASortParm"] = sortOrder == "GPA" ? "-GPA" : "GPA";
-            ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "-GraduationDate" : "GraduationDate";*/
-
-            var studentQuery = from s in _context.Prospect
-                               select s;
-
-           /* switch (sortOrder)
-            {
-                case "FirstName":
-                    studentQuery = studentQuery.OrderBy(s => s.FirstName);
-                    break;
-                case "-FirstName":
-                    studentQuery = studentQuery.OrderByDescending(s => s.FirstName);
-                    break;
-                case "LastName":
-                    studentQuery = studentQuery.OrderBy(s => s.LastName);
-                    break;
-                case "-LastName":
-                    studentQuery = studentQuery.OrderByDescending(s => s.LastName);
-                    break;
-                case "GPA":
-                    studentQuery = studentQuery.OrderBy(s => s.GPA);
-                    break;
-                case "-GPA":
-                    studentQuery = studentQuery.OrderByDescending(s => s.GPA);
-                    break;
-                case "GraduationDate":
-                    studentQuery = studentQuery.OrderBy(s => s.GraduationDate);
-                    break;
-                case "-GraduationDate":
-                    studentQuery = studentQuery.OrderByDescending(s => s.GraduationDate);
-                    break;
-                default:
-                    studentQuery = studentQuery.OrderByDescending(s => s.GPA); // Default to sorting by GPA descending
-                    break;
-            }*/
-
-            var Student = from m in _context.Prospect select m;
-
-            //Allows the user to filter by First Name, Last Name, and GPA Floor
-            if (!String.IsNullOrEmpty(FirstName) && !String.IsNullOrEmpty(LastName) && !String.IsNullOrEmpty(GradePoint))
-            {
-                studentQuery = studentQuery.Where(s => s.FirstName!.Contains(FirstName) && s.LastName!.Contains(LastName) && s.GPA > float.Parse(GradePoint));
-                studentQuery = studentQuery.OrderByDescending(s => s.GPA);
-            }
-            else
-            {
-                if (!String.IsNullOrEmpty(FirstName))
-                {
-                    studentQuery = studentQuery.Where(s => s.FirstName!.Contains(FirstName));
-                }
-                if (!String.IsNullOrEmpty(LastName))
-                {
-                    studentQuery = studentQuery.Where(s => s.LastName!.Contains(LastName));
-                }
-                if (!String.IsNullOrEmpty(GradePoint))
-                {
-                    studentQuery = studentQuery.Where(s => s.GPA > float.Parse(GradePoint));
-                    studentQuery = studentQuery.OrderByDescending(s => s.GPA);
-                }
-            }
-
-            //Search By Graduation Date
-            if (!String.IsNullOrEmpty(GradYear))
-            {
-                studentQuery = studentQuery.Where(s => s.GraduationDate > DateTime.Parse(GradYear));
-                studentQuery = studentQuery.OrderBy(s => s.GraduationDate);
-            }
+            var students = await _studentRepository.GetStudents(FirstName, LastName, GPA, GradYear, sortOrder);
 
             var studentsVM = new StudentViewModel
             {
-                Students = await studentQuery.ToListAsync()
+                Students = students
             };
+
+            ViewData["CurrentSort"] = sortOrder;
 
             return View(studentsVM);
         }
@@ -116,38 +54,28 @@ namespace ProdigyScout.Controllers
         // GET: Prospects/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            StudentViewModel studentViewModel;
-
-            if (id == null || _context.Prospect == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var prospect = await _context.Prospect.FirstOrDefaultAsync(m => m.Id == id);
+            var student = await _studentRepository.GetStudentByID(id.Value);
 
-            if (prospect == null)
+            if (student == null)
             {
                 return NotFound();
             }
-            else
-            {
-                studentViewModel = new(prospect);
-            }
 
-            return View(studentViewModel);
+            return View(student);
         }
 
         // GET: Prospects/Create
         public IActionResult Create()
         {
-            StudentViewModel studentViewModel = new();
-
-            return View(studentViewModel);
+            return View();
         }
 
         // POST: Prospects/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,email,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
@@ -160,17 +88,12 @@ namespace ProdigyScout.Controllers
                     return View(studentViewModel);
                 }
 
-                Prospect prospect = new()
+                var student = await _studentRepository.InsertStudent(studentViewModel);
+
+                if (student == null)
                 {
-                    FirstName = studentViewModel.FirstName.Trim(),
-                    LastName = studentViewModel.LastName.Trim(),
-                    email = studentViewModel.email.Trim(),
-                    Gender = studentViewModel.Gender.Trim(),
-                    GPA = studentViewModel.GPA,
-                    GraduationDate = studentViewModel.GraduationDate.Date
-                };
-                _context.Add(prospect);
-                await _context.SaveChangesAsync();
+                    return NotFound();
+                }
 
                 return RedirectToAction(nameof(Index));
             }
@@ -180,30 +103,22 @@ namespace ProdigyScout.Controllers
         // GET: Prospects/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            StudentViewModel studentViewModel;
-
             if (id == null)
             {
                 return NotFound();
             }
 
-            var prospect = await _context.Prospect.FindAsync(id);
+            var student = await _studentRepository.GetStudentByID(id.Value);
 
-            if (prospect == null)
+            if (student == null)
             {
                 return NotFound();
             }
-            else
-            {
-                studentViewModel = new(prospect);
-            }
 
-            return View(studentViewModel);
+            return View(student);
         }
 
         // POST: Prospects/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,email,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
@@ -215,42 +130,13 @@ namespace ProdigyScout.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                var student = await _studentRepository.UpdateStudent(studentViewModel);
+
+                if (student == null)
                 {
-                    Prospect prospect = await _context.Prospect.FindAsync(studentViewModel.Id);
-
-                    if (prospect == null)
-                    {
-                        return NotFound();
-                    }
-
-                    if (!studentViewModel.email.EndsWith(".com"))
-                    {
-                        ModelState.AddModelError(string.Empty, "Only Email IDs from .com Domains are allowed.");
-                        return View(studentViewModel);
-                    }
-
-                    prospect.FirstName = studentViewModel.FirstName.Trim();
-                    prospect.LastName = studentViewModel.LastName.Trim();
-                    prospect.email = studentViewModel.email.Trim();
-                    prospect.Gender = studentViewModel.Gender.Trim();
-                    prospect.GPA = studentViewModel.GPA;
-                    prospect.GraduationDate = studentViewModel.GraduationDate;
-
-                    _context.Update(prospect);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProspectExists(studentViewModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(studentViewModel);
@@ -259,25 +145,19 @@ namespace ProdigyScout.Controllers
         // GET: Prospects/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            StudentViewModel studentViewModel;
-
             if (id == null)
             {
                 return NotFound();
             }
 
-            var prospect = await _context.Prospect.FirstOrDefaultAsync(m => m.Id == id);
+            var student = await _studentRepository.GetStudentByID(id.Value);
 
-            if (prospect == null)
+            if (student == null)
             {
                 return NotFound();
             }
-            else
-            {
-                studentViewModel = new(prospect);
-            }
 
-            return View(studentViewModel);
+            return View(student);
         }
 
         // POST: Prospects/Delete/5
@@ -285,19 +165,8 @@ namespace ProdigyScout.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var prospect = await _context.Prospect.FindAsync(id);
-            if (prospect != null)
-            {
-                _context.Prospect.Remove(prospect);
-            }
-
-            await _context.SaveChangesAsync();
+            await _studentRepository.DeleteStudent(id);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ProspectExists(int id)
-        {
-            return _context.Prospect.Any(e => e.Id == id);
         }
     }
 }
