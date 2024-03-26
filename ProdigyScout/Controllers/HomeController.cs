@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using ProdigyScout.Models;
+using System.Diagnostics;
 
 namespace ProdigyScout.Controllers
 {

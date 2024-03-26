@@ -1,24 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProdigyScout.Data;
 using ProdigyScout.Interfaces;
-using ProdigyScout.Models;
 using ProdigyScout.ViewModels;
-using SendGrid.Helpers.Mail;
 
 namespace ProdigyScout.Controllers
 {
     [Authorize]
     public class ProspectsController : Controller
     {
-        //private readonly ProdigyScoutContext _context;
-        /*public ProspectsController(ProdigyScoutContext context)
-        {
-            _context = context;
-        }*/
-
         private readonly IStudentRepository _studentRepository;
 
         public ProspectsController(IStudentRepository studentRepository)

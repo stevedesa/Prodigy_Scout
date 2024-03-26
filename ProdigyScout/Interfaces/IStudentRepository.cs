@@ -1,6 +1,5 @@
-﻿using ProdigyScout.ViewModels;
-using ProdigyScout.Models;
-using ProdigyScout.Helpers;
+﻿using ProdigyScout.Models;
+using ProdigyScout.ViewModels;
 
 namespace ProdigyScout.Interfaces
 {
