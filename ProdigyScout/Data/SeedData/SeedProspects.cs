@@ -1,9 +1,8 @@
-﻿using ProdigyScout.Models;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
+using ProdigyScout.Models;
 using System.Diagnostics;
 using System.Reflection;
-using ProdigyScout.Data;
 
 namespace ProdigyScout.Data.SeedData
 {

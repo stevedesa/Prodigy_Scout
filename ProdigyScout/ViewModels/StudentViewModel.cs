@@ -6,7 +6,7 @@ namespace ProdigyScout.ViewModels
 {
     public class StudentViewModel
     {
-        public StudentViewModel() 
+        public StudentViewModel()
         {
             FirstName = string.Empty;
             LastName = string.Empty;

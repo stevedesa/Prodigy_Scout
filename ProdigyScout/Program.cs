@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 using ProdigyScout.Data;
 using ProdigyScout.Data.SeedData;
-using ProdigyScout.Services;
 using ProdigyScout.Interfaces;
+using ProdigyScout.Services;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ProdigyScoutContextConnection") ?? throw new InvalidOperationException("Connection string 'ProdigyScoutContextConnection' not found.");
