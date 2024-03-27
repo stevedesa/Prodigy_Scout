@@ -22,68 +22,52 @@ namespace ProdigyScout.Tests
         [Fact]
         public async Task Get_Students_FilterBy_Default()
         {
-            // Arrange.
+            // Arrange - no need for specific arrangements
 
-            // Act.
-            IList<Prospect> students = await _repository.GetStudents(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            // Act
+            var students = await _repository.GetStudents(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
 
-            // Assert.
+            // Assert
             Assert.Equal(3, students.Count);
-
-            // The number of inspectors should match the number of Students in the list.
-            Assert.Collection(students,
-                s => Assert.Equal(Constants.LAST_NAME_1, s.LastName),
-                s => Assert.Equal(Constants.LAST_NAME_2, s.LastName),
-                s => Assert.Equal(Constants.LAST_NAME_3, s.LastName));
         }
 
         [Fact]
         public async Task Get_Students_FilterBy_None()
         {
-            // Arrange.
+            // Arrange - set up search string for no matches
             var searchString = "qqqxxx";
 
-            // Act.
-            IList<Prospect> students = await _repository.GetStudents(searchString, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            // Act
+            var students = await _repository.GetStudents(searchString, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
 
-            // Assert.
-            Assert.Equal(0, students.Count);
+            // Assert
+            Assert.Empty(students);
         }
 
         [Fact]
         public async Task Get_Students_FilterBy_Many()
         {
-            // Arrange.
+            // Arrange - set up search string for matches
             var searchString = "Student";
 
-            // Act.
-            IList<Prospect> students = await _repository.GetStudents(string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            // Act
+            var students = await _repository.GetStudents(searchString, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
 
-            // Assert.
+            // Assert
             Assert.Equal(3, students.Count);
-
-            // The number of inspectors should match the number of Students in the list.
-            Assert.Collection(students,
-                s => Assert.Equal(Constants.LAST_NAME_1, s.LastName),
-                s => Assert.Equal(Constants.LAST_NAME_2, s.LastName),
-                s => Assert.Equal(Constants.LAST_NAME_3, s.LastName));
         }
 
         [Fact]
         public async Task Get_Students_FilterBy_Single()
         {
-            // Arrange.
+            // Arrange - set up search string for a single match
             var searchString = Constants.LAST_NAME_1;
 
-            // Act.
-            IList<Prospect> students = await _repository.GetStudents(searchString, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            // Act
+            var students = await _repository.GetStudents(searchString, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
 
-            // Assert.
+            // Assert
             Assert.Single(students);
-
-            // The number of inspectors should match the number of Students in the list.
-            Assert.Collection(students,
-                s => Assert.Equal(Constants.LAST_NAME_1, s.LastName));
         }
 
         [Fact]

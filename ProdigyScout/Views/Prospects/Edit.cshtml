@@ -5,10 +5,8 @@
 }
 
 <h1>Edit</h1>
-
-<h4>Prospect</h4>
 <hr />
-<div class="row">
+<div class="row" style="display: flex; justify-content: center; align-items: center;">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -53,7 +51,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-success" asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
