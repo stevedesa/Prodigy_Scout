@@ -89,10 +89,10 @@ namespace ProdigyScout.Interfaces
         {
             var prospect = new Prospect
             {
-                FirstName = studentViewModel.FirstName.Trim(),
-                LastName = studentViewModel.LastName.Trim(),
-                email = studentViewModel.EmailID.Trim(),
-                Gender = studentViewModel.Gender.Trim(),
+                FirstName = studentViewModel.FirstName?.Trim(),
+                LastName = studentViewModel.LastName?.Trim(),
+                email = studentViewModel.EmailID?.Trim(),
+                Gender = studentViewModel.Gender?.Trim(),
                 GPA = studentViewModel.GPA,
                 GraduationDate = studentViewModel.GraduationDate.Date
             };
