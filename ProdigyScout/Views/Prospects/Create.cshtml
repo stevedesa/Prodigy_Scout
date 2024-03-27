@@ -5,12 +5,10 @@
 }
 
 <h1>Create New Student</h1>
-
-<h4>Prospect</h4>
 <hr />
-<div class="row">
+<div class="row" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" style="display: flex; flex-direction: column; gap: 10px;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label>First Name</label>
@@ -52,7 +50,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to Student List</a>
+    <a class="btn btn-success" asp-action="Index">Back to Student List</a>
 </div>
 
 @section Scripts {
