@@ -17,6 +17,7 @@ test:
   tags:
     - csc340
   script:
+    - cd ProdigyScout.Test 
     - dotnet test --logger:"junit;LogFilePath=..\test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
   artifacts:
     when: always
