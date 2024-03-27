@@ -11,6 +11,20 @@ build:
     - dotnet restore
     - dotnet build --configuration Release
 
+test:
+  stage: test
+  tags:
+    - csc340
+  script:
+    - dotnet test --logger:"junit;LogFilePath=..\test-result.xml;MethodFormat=Class;FailureBodyFormat=Verbose"
+  artifacts:
+    when: always
+    paths:
+      - ./*test-result.xml
+    reports:
+      junit:
+        - ./*test-result.xml
+
 publish:
   stage: publish
   tags:
