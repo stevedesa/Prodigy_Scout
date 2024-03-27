@@ -47,22 +47,14 @@ namespace ProdigyScout.Interfaces
                 students = students.Where(s => (s.FirstName + " " + s.LastName).Contains(fullNameSearch));
             }
 
-            if (!string.IsNullOrEmpty(gpa))
+            if (!string.IsNullOrEmpty(gpa) && float.TryParse(gpa, out float gpaValue))
             {
-                float gpaValue;
-                if (float.TryParse(gpa, out gpaValue))
-                {
-                    students = students.Where(s => s.GPA > gpaValue);
-                }
+                students = students.Where(s => s.GPA > gpaValue);
             }
 
-            if (!string.IsNullOrEmpty(gradYear))
+            if (!string.IsNullOrEmpty(gradYear) && DateTime.TryParse(gradYear, out DateTime gradYearValue))
             {
-                DateTime gradYearValue;
-                if (DateTime.TryParse(gradYear, out gradYearValue))
-                {
-                    students = students.Where(s => s.GraduationDate > gradYearValue);
-                }
+                students = students.Where(s => s.GraduationDate > gradYearValue);
             }
 
             students = sortOrder switch
@@ -94,10 +86,10 @@ namespace ProdigyScout.Interfaces
 
             var prospect = new Prospect
             {
-                FirstName = studentViewModel.FirstName.Trim(),
-                LastName = studentViewModel.LastName.Trim(),
-                email = studentViewModel.EmailID.Trim(),
-                Gender = studentViewModel.Gender.Trim(),
+                FirstName = studentViewModel.FirstName?.Trim(),
+                LastName = studentViewModel.LastName?.Trim(),
+                email = studentViewModel.EmailID?.Trim(),
+                Gender = studentViewModel.Gender?.Trim(),
                 GPA = studentViewModel.GPA,
                 GraduationDate = studentViewModel.GraduationDate.Date
             };
@@ -117,10 +109,10 @@ namespace ProdigyScout.Interfaces
                 return null;
             }
 
-            prospect.FirstName = studentViewModel.FirstName.Trim();
-            prospect.LastName = studentViewModel.LastName.Trim();
-            prospect.email = studentViewModel.EmailID.Trim();
-            prospect.Gender = studentViewModel.Gender.Trim();
+            prospect.FirstName = studentViewModel.FirstName?.Trim();
+            prospect.LastName = studentViewModel.LastName?.Trim();
+            prospect.email = studentViewModel.EmailID?.Trim();
+            prospect.Gender = studentViewModel.Gender?.Trim();
             prospect.GPA = studentViewModel.GPA;
             prospect.GraduationDate = studentViewModel.GraduationDate;
 
