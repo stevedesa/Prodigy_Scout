@@ -61,7 +61,7 @@ namespace ProdigyScout.Controllers
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
-                EmailID = student.email,
+                EmailID = student.Email,
                 GPA = student.GPA,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate
@@ -79,7 +79,7 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,email,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -121,7 +121,7 @@ namespace ProdigyScout.Controllers
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
-                EmailID = student.email,
+                EmailID = student.Email,
                 GPA = student.GPA,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate
@@ -133,7 +133,7 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,email,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
         {
             if (id != studentViewModel.Id)
             {
@@ -174,7 +174,7 @@ namespace ProdigyScout.Controllers
                 Id = student.Id,
                 FirstName = student.FirstName,
                 LastName = student.LastName,
-                EmailID = student.email,
+                EmailID = student.Email,
                 GPA = student.GPA,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate

@@ -73,7 +73,7 @@ namespace ProdigyScout.Data.SeedData
                         {
                             FirstName = values[0],
                             LastName = values[1],
-                            email = values[2],
+                            Email = values[2],
                             Gender = values[3],
                             GPA = float.Parse(values[4]),
                             GraduationDate = DateTime.Parse(values[5])

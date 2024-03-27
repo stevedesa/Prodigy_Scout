@@ -16,7 +16,7 @@ namespace ProdigyScout.Tests.Fixture
         {
             // This is the same connection string from the appsettings.json file in the app
             // with a separate database name.
-            Connection = new SqlConnection(@"Server=(localdb)\mssqllocaldb;Database=ProdigyScout;Trusted_Connection=True;MultipleActiveResultSets=true");
+            Connection = new SqlConnection(@"Server=(localdb)\mssqllocaldb;Database=ProdigyScoutTests;Trusted_Connection=True;MultipleActiveResultSets=true");
 
             // In order to maintain a "known state" with the database, add 
             // data that can be used to assist with the assertions since this

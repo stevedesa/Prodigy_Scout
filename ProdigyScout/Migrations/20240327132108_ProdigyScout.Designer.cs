@@ -7,13 +7,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProdigyScout.Data;
 
-
 #nullable disable
 
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240301213315_ProdigyScout")]
+    [Migration("20240327132108_ProdigyScout")]
     partial class ProdigyScout
     {
         /// <inheritdoc />

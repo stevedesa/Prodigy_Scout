@@ -11,6 +11,7 @@ namespace ProdigyScout.ViewModels
             FirstName = string.Empty;
             LastName = string.Empty;
             Gender = string.Empty;
+            EmailID = string.Empty;
             GPA = 0;
             GraduationDate = DateTime.Today;
         }
@@ -22,7 +23,7 @@ namespace ProdigyScout.ViewModels
                 Id = student.Id;
                 FirstName = student.FirstName;
                 LastName = student.LastName;
-                EmailID = student.email;
+                EmailID = student.Email;
                 Gender = student.Gender;
                 GPA = student.GPA;
                 GraduationDate = student.GraduationDate;

@@ -88,7 +88,7 @@ namespace ProdigyScout.Interfaces
             {
                 FirstName = studentViewModel.FirstName?.Trim(),
                 LastName = studentViewModel.LastName?.Trim(),
-                email = studentViewModel.EmailID?.Trim(),
+                Email = studentViewModel.EmailID?.Trim(),
                 Gender = studentViewModel.Gender?.Trim(),
                 GPA = studentViewModel.GPA,
                 GraduationDate = studentViewModel.GraduationDate.Date
@@ -111,7 +111,7 @@ namespace ProdigyScout.Interfaces
 
             prospect.FirstName = studentViewModel.FirstName?.Trim();
             prospect.LastName = studentViewModel.LastName?.Trim();
-            prospect.email = studentViewModel.EmailID?.Trim();
+            prospect.Email = studentViewModel.EmailID?.Trim();
             prospect.Gender = studentViewModel.Gender?.Trim();
             prospect.GPA = studentViewModel.GPA;
             prospect.GraduationDate = studentViewModel.GraduationDate;

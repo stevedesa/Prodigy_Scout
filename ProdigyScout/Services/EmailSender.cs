@@ -32,7 +32,7 @@ namespace ProdigyScout.Services
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("Joe@contoso.com", "Password Recovery"),
+                From = new EmailAddress("brian.butterfield@sdsmt.edu", "Account Management"),
                 Subject = subject,
                 PlainTextContent = message,
                 HtmlContent = message
