@@ -87,6 +87,11 @@ namespace ProdigyScout.Interfaces
 
         public async Task<Prospect> InsertStudent(StudentViewModel studentViewModel)
         {
+            if (studentViewModel == null)
+            {
+                throw new ArgumentNullException(nameof(studentViewModel));
+            }
+
             var prospect = new Prospect
             {
                 FirstName = studentViewModel.FirstName.Trim(),
