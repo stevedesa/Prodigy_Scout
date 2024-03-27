@@ -20,5 +20,5 @@ public class ProdigyScoutContext : IdentityDbContext<IdentityUser>
         // Add your customizations after calling base.OnModelCreating(builder);
     }
 
-public DbSet<ProdigyScout.Models.Prospect> Prospect { get; set; } = default!;
+    public DbSet<Prospect> Prospect { get; set; } = default!;
 }

@@ -29,4 +29,8 @@
     <PackageReference Include="SendGrid" Version="9.29.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
+  </ItemGroup>
+
 </Project>
