@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProdigyScout.Data;
 
+
 #nullable disable
 
 namespace ProdigyScout.Migrations
