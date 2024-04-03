@@ -28,33 +28,39 @@ namespace ProdigyScout.Interfaces
             }
         }
 
-        public async Task<IList<Prospect>> GetStudents(string fullNameSearch, string firstName, string lastName, string gpa, string gradYear, string sortOrder)
+        public async Task<IList<Prospect>> GetStudents(string filterBy, string searchTerm, string sortOrder)
         {
             var students = _context.Prospect.AsQueryable();
 
-            if (!string.IsNullOrEmpty(firstName))
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                students = students.Where(s => s.FirstName.Contains(firstName));
-            }
-
-            if (!string.IsNullOrEmpty(lastName))
-            {
-                students = students.Where(s => s.LastName.Contains(lastName));
-            }
-
-            if (!string.IsNullOrEmpty(fullNameSearch))
-            {
-                students = students.Where(s => (s.FirstName + " " + s.LastName).Contains(fullNameSearch));
-            }
-
-            if (!string.IsNullOrEmpty(gpa) && float.TryParse(gpa, out float gpaValue))
-            {
-                students = students.Where(s => s.GPA > gpaValue);
-            }
-
-            if (!string.IsNullOrEmpty(gradYear) && DateTime.TryParse(gradYear, out DateTime gradYearValue))
-            {
-                students = students.Where(s => s.GraduationDate > gradYearValue);
+                switch (filterBy)
+                {
+                    case "First Name":
+                        students = students.Where(s => s.FirstName.Contains(searchTerm));
+                        break;
+                    case "Last Name":
+                        students = students.Where(s => s.LastName.Contains(searchTerm));
+                        break;
+                    case "Email":
+                        students = students.Where(s => s.Email.Contains(searchTerm));
+                        break;
+                    case "Gender":
+                        students = students.Where(s => s.Gender.Contains(searchTerm));
+                        break;
+                    case "GPA":
+                        if (float.TryParse(searchTerm, out float gpaValue))
+                        {
+                            students = students.Where(s => s.GPA >= gpaValue);
+                        }
+                        break;
+                    case "Graduation Date":
+                        if (DateTime.TryParse(searchTerm, out DateTime graduationDate))
+                        {
+                            students = students.Where(s => s.GraduationDate.Date >= graduationDate.Date);
+                        }
+                        break;
+                }
             }
 
             students = sortOrder switch

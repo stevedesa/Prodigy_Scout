@@ -12,20 +12,26 @@
         <a asp-controller="Prospects" asp-action="Create" class="btn btn-info custom-createbutton" style="margin-right: 10px;"><b>Create New Student</b></a>
     </p>
 
-    <form asp-controller="Prospects" asp-action="Index" style="margin-right: 10px;">
-        <p style="display: flex; align-items: center;">
-            <label style="margin-right: 5px;">Name:</label>
-            <input type="text" name="FullNameSearch" style="margin-right: 10px; height: 40px;" />
-
-            <label style="margin-right: 5px;">Min GPA:</label>
-            <input type="text" name="GradePointSearch" style="margin-right: 10px; height: 40px;" />
-
-            <label style="margin-right: 5px;">Min Grad Date:</label>
-            <input type="text" name="GradYearSearch" style="margin-right: 10px; height: 40px;" />
-
-            <input type="submit" value="Filter" class="btn btn-secondary" style="display: flex; align-items: center; justify-content: center;
-            margin-right: 10px; width: 50px; height: 40px;" />
-        </p>
+    <form action="@Url.Action("Index", "Prospects")" method="get">
+        <div class="filter-row" style="margin-bottom: 15px;">
+            <div class="form-group filter-row" style="height: 40px; display: flex; align-items: center;">
+                <label for="FilterBy"><b>Filter:</b></label>
+                <select id="FilterBy" name="FilterBy" class="form-control" style="height: 40px;">
+                    <option value="">Filter By ...</option>
+                    @foreach (var option in Model.FilterOptions)
+                    {
+                        <option value="@option">@option</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group filter-row" style="height: 40px; display: flex; align-items: center;">
+                <input type="text" id="SearchTerm" name="SearchTerm" class="form-control" option value="Search ..." style="height: 40px;" />
+            </div>
+            <button type="submit" class="btn btn-primary" style="display: flex; align-items: center; justify-content: center;
+                    margin-right: 10px; width: 100px; height: 40px;">
+                <b>Search</b>
+            </button>
+        </div>
     </form>
 
     <p style="display: flex; align-items: center;">
@@ -56,6 +62,14 @@
         width: 200px;
         height: 40px;
         display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .filter-row {
+        display:flex;
+        flex-direction: row;
+        gap: 10px;
         align-items: center;
         justify-content: center;
     }

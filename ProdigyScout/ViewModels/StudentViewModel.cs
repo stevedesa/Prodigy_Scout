@@ -1,4 +1,5 @@
-﻿using ProdigyScout.Models;
+﻿using ProdigyScout.Interfaces;
+using ProdigyScout.Models;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -63,12 +64,21 @@ namespace ProdigyScout.ViewModels
         }
 
         // Helper Attributes
-        public IEnumerable<Prospect> Students { get; set; }
+        /*public IEnumerable<Prospect> Students { get; set; }
         public string FullNameSearch { get; set; }
         public string FirstNameSearch { get; set; }
         public string LastNameSearch { get; set; }
         public string GradePointSearch { get; set; }
         public string GradYearSearch { get; set; }
+        public string CurrentSort { get; private set; }*/
+
+        public IEnumerable<Prospect> Students { get; set; }
+        public string FilterBy { get; set; }
+        public string SearchTerm { get; set; }
+        public string CurrentSort { get; set; }
+
+        // Define filter options for dropdown menu
+        public IEnumerable<string> FilterOptions => new List<string> { "First Name", "Last Name", "Email", "Gender", "GPA", "Graduation Date" };
 
     }
 }

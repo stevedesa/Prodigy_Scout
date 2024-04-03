@@ -16,24 +16,21 @@ namespace ProdigyScout.Controllers
         }
 
         // GET: Prospects
-        public async Task<IActionResult> Index(StudentViewModel studentViewModel, string sortOrder)
+        public async Task<IActionResult> Index(string filterBy, string searchTerm, string sortOrder)
         {
-            string FullNameSearch = studentViewModel.FullNameSearch;
-            string FirstName = studentViewModel.FirstNameSearch;
-            string LastName = studentViewModel.LastNameSearch;
-            string GPA = studentViewModel.GradePointSearch;
-            string GradYear = studentViewModel.GradYearSearch;
-
             ViewData["FirstNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "FirstName" : "";
             ViewData["LastNameSortParm"] = sortOrder == "LastName" ? "LastName_desc" : "LastName";
             ViewData["GPASortParm"] = sortOrder == "GPA" ? "GPA_desc" : "GPA";
             ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "GraduationDate_desc" : "GraduationDate";
 
-            var students = await _studentRepository.GetStudents(FullNameSearch, FirstName, LastName, GPA, GradYear, sortOrder);
+            var students = await _studentRepository.GetStudents(filterBy, searchTerm, sortOrder);
 
             var studentsVM = new StudentViewModel
             {
-                Students = students
+                Students = students,
+                FilterBy = filterBy,
+                SearchTerm = searchTerm,
+                CurrentSort = sortOrder
             };
 
             ViewData["CurrentSort"] = sortOrder;
