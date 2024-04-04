@@ -66,12 +66,13 @@ namespace ProdigyScout.Interfaces
             students = sortOrder switch
             {
                 "FirstName" => students.OrderBy(s => s.FirstName),
-                "LastName_desc" => students.OrderByDescending(s => s.LastName),
+                "FirstName_desc" => students.OrderByDescending(s => s.FirstName),
                 "LastName" => students.OrderBy(s => s.LastName),
-                "GPA_desc" => students.OrderByDescending(s => s.GPA),
+                "LastName_desc" => students.OrderByDescending(s => s.LastName),
                 "GPA" => students.OrderBy(s => s.GPA),
-                "GraduationDate_desc" => students.OrderByDescending(s => s.GraduationDate),
+                "GPA_desc" => students.OrderByDescending(s => s.GPA),
                 "GraduationDate" => students.OrderBy(s => s.GraduationDate),
+                "GraduationDate_desc" => students.OrderByDescending(s => s.GraduationDate),
                 _ => students.OrderByDescending(s => s.GPA)
             };
 

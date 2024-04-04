@@ -1,5 +1,4 @@
-﻿﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,32 +12,48 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
-<body class="d-flex h-100 text-center text-bg-dark vsc-initialized" style="display: flex; flex-direction: column;">
-    <header class="p-3 text-bg-dark">
-        <div class="container">
+<body class="d-flex h-100 text-center text-bg-dark vsc-initialized bckgrd" style="display: flex; flex-direction: column;">
+    <header class="p-4 text-white bg-dark" style="opacity: 0.85;">
+        <div class="container-fluid">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <img style="width:30px; height:30px; border: 2px solid #000000; border-radius: 20%; margin-right:10px;" src="~/css/prodigy_scout_logo.png" />
+                    <img style="width:40px; height:40px; border: 2px solid #000000; border-radius: 20%; margin-right:15px;" src="~/css/prodigy_scout_logo.png" />
                 </a>
-
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-2 text-white">Home</a></li>
-                    <li><a asp-area="" asp-controller="Prospects" class="nav-link px-2 text-white">Students List</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Privacy" class="nav-link px-2 text-white">Privacy</a></li>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" style="display: flex; flex-direction: row; gap: 10px;">
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-light me-2"
+                           style="display: flex; justify-content: center; align-items: center;">Home</a>
+                    </li>
+                    <li><a asp-area="" asp-controller="Prospects" class="btn btn-outline-light me-2" 
+                            style="display: flex; justify-content: center; align-items: center;">Students List</a>
+                    </li>
+                    <li>
+                        <a asp-area="" asp-controller="Home" asp-action="Privacy" class="btn btn-outline-light me-2"
+                           style="display: flex; justify-content: center; align-items: center;">Privacy</a>
+                    </li>
                 </ul>
 
                 <partial name="_LoginPartial" />
             </div>
         </div>
     </header>
-    <div class="container">
+
+    <div class="bckgrd">
         <main role="main" class="pb-3">
-            @RenderBody()
+            <div class="container-fluid">
+                @RenderBody()
+            </div>
         </main>
     </div>
+    <style>
+        .bckgrd{
+            background-color: #000000;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='52' viewBox='0 0 52 52'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M0 17.83V0h17.83a3 3 0 0 1-5.66 2H5.9A5 5 0 0 1 2 5.9v6.27a3 3 0 0 1-2 5.66zm0 18.34a3 3 0 0 1 2 5.66v6.27A5 5 0 0 1 5.9 52h6.27a3 3 0 0 1 5.66 0H0V36.17zM36.17 52a3 3 0 0 1 5.66 0h6.27a5 5 0 0 1 3.9-3.9v-6.27a3 3 0 0 1 0-5.66V52H36.17zM0 31.93v-9.78a5 5 0 0 1 3.8.72l4.43-4.43a3 3 0 1 1 1.42 1.41L5.2 24.28a5 5 0 0 1 0 5.52l4.44 4.43a3 3 0 1 1-1.42 1.42L3.8 31.2a5 5 0 0 1-3.8.72zm52-14.1a3 3 0 0 1 0-5.66V5.9A5 5 0 0 1 48.1 2h-6.27a3 3 0 0 1-5.66-2H52v17.83zm0 14.1a4.97 4.97 0 0 1-1.72-.72l-4.43 4.44a3 3 0 1 1-1.41-1.42l4.43-4.43a5 5 0 0 1 0-5.52l-4.43-4.43a3 3 0 1 1 1.41-1.41l4.43 4.43c.53-.35 1.12-.6 1.72-.72v9.78zM22.15 0h9.78a5 5 0 0 1-.72 3.8l4.44 4.43a3 3 0 1 1-1.42 1.42L29.8 5.2a5 5 0 0 1-5.52 0l-4.43 4.44a3 3 0 1 1-1.41-1.42l4.43-4.43a5 5 0 0 1-.72-3.8zm0 52c.13-.6.37-1.19.72-1.72l-4.43-4.43a3 3 0 1 1 1.41-1.41l4.43 4.43a5 5 0 0 1 5.52 0l4.43-4.43a3 3 0 1 1 1.42 1.41l-4.44 4.43c.36.53.6 1.12.72 1.72h-9.78zm9.75-24a5 5 0 0 1-3.9 3.9v6.27a3 3 0 1 1-2 0V31.9a5 5 0 0 1-3.9-3.9h-6.27a3 3 0 1 1 0-2h6.27a5 5 0 0 1 3.9-3.9v-6.27a3 3 0 1 1 2 0v6.27a5 5 0 0 1 3.9 3.9h6.27a3 3 0 1 1 0 2H31.9z'%3E%3C/path%3E%3C/svg%3E");
+        }
+    </style>
 
-    <div class="container">
-        <footer class="py-3 my-4">
+    <div class="container-fluid bg-dark" style="opacity: 1;">
+        <footer class="py-2 my-0">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-2 text-white">Home</a></li>
                 <li class="nav-item"><a a asp-area="" asp-controller="Prospects" class="nav-link px-2 text-white">Students List</a></li>
@@ -55,4 +70,6 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+
 
