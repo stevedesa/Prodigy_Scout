@@ -14,5 +14,7 @@
         {
             get { return string.Concat(GraduationDate.ToString("MMM"), " ", GraduationDate.ToString("yyyy")); }
         }
+
+        public virtual ComplexDetails ComplexDetails { get; set; }
     }
 }

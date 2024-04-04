@@ -12,7 +12,7 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240327132108_ProdigyScout")]
+    [Migration("20240404221147_ProdigyScout")]
     partial class ProdigyScout
     {
         /// <inheritdoc />
@@ -227,6 +227,19 @@ namespace ProdigyScout.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("ProdigyScout.Models.ComplexDetails", b =>
+                {
+                    b.Property<int>("ProspectId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsWatched")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ProspectId");
+
+                    b.ToTable("ComplexDetails");
+                });
+
             modelBuilder.Entity("ProdigyScout.Models.Prospect", b =>
                 {
                     b.Property<int>("Id")
@@ -234,6 +247,9 @@ namespace ProdigyScout.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
@@ -248,9 +264,6 @@ namespace ProdigyScout.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -307,6 +320,22 @@ namespace ProdigyScout.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ProdigyScout.Models.ComplexDetails", b =>
+                {
+                    b.HasOne("ProdigyScout.Models.Prospect", "Prospect")
+                        .WithOne("ComplexDetails")
+                        .HasForeignKey("ProdigyScout.Models.ComplexDetails", "ProspectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Prospect");
+                });
+
+            modelBuilder.Entity("ProdigyScout.Models.Prospect", b =>
+                {
+                    b.Navigation("ComplexDetails");
                 });
 #pragma warning restore 612, 618
         }

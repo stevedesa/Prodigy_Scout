@@ -13,7 +13,6 @@ namespace ProdigyScout.Data.SeedData
             using var context = new ProdigyScoutContext(serviceProvider.GetRequiredService<DbContextOptions<ProdigyScoutContext>>());
 
             // Look for any Students.
-            // NOTE:  Not robust enough yet.
             if (!context.Users.Any())
             {
                 SeedUser(context, "recruiter1@example.com", "Test_1234", "Recruiter", "One");
@@ -63,25 +62,30 @@ namespace ProdigyScout.Data.SeedData
                     // Writes to the Output Window.
                     Debug.WriteLine(line);
 
-                    // Logic to parse the line, separate by comma(s), and assign fields
-                    // to the Student model.
-
                     string[] values = line.Split(",");
 
-                    context.Prospect.Add(
-                        new Prospect
-                        {
-                            FirstName = values[0],
-                            LastName = values[1],
-                            Email = values[2],
-                            Gender = values[3],
-                            GPA = float.Parse(values[4]),
-                            GraduationDate = DateTime.Parse(values[5])
-                        }
-                    );
+                    var prospect = new Prospect
+                    {
+                        FirstName = values[0],
+                        LastName = values[1],
+                        Email = values[2],
+                        Gender = values[3],
+                        GPA = float.Parse(values[4]),
+                        GraduationDate = DateTime.Parse(values[5])
+                    };
+
+                    var complexDetails = new ComplexDetails
+                    {
+                        IsWatched = false, // Set IsWatched to false
+                        Prospect = prospect // Associate ComplexDetails with Prospect
+                    };
+
+                    prospect.ComplexDetails = complexDetails; // Associate Prospect with ComplexDetails
+
+                    context.Prospect.Add(prospect);
+                    context.ComplexDetails.Add(complexDetails);
                 }
             }
-
             context.SaveChanges();
         }
     }

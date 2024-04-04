@@ -58,7 +58,7 @@ namespace ProdigyScout.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GPA = table.Column<float>(type: "real", nullable: false),
                     GraduationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -174,6 +174,24 @@ namespace ProdigyScout.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ComplexDetails",
+                columns: table => new
+                {
+                    ProspectId = table.Column<int>(type: "int", nullable: false),
+                    IsWatched = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ComplexDetails", x => x.ProspectId);
+                    table.ForeignKey(
+                        name: "FK_ComplexDetails_Prospect_ProspectId",
+                        column: x => x.ProspectId,
+                        principalTable: "Prospect",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -233,13 +251,16 @@ namespace ProdigyScout.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Prospect");
+                name: "ComplexDetails");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Prospect");
         }
     }
 }
