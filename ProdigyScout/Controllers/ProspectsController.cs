@@ -18,7 +18,7 @@ namespace ProdigyScout.Controllers
         // GET: Prospects
         public async Task<IActionResult> Index(string filterBy, string searchTerm, string sortOrder)
         {
-            ViewData["FirstNameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "FirstName" : "";
+            ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "FirstName_desc" : "FirstName";
             ViewData["LastNameSortParm"] = sortOrder == "LastName" ? "LastName_desc" : "LastName";
             ViewData["GPASortParm"] = sortOrder == "GPA" ? "GPA_desc" : "GPA";
             ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "GraduationDate_desc" : "GraduationDate";

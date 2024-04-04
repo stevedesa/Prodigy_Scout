@@ -2,37 +2,134 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h2 class="display-6 text-center">Prodigy Scout</h2>
-    <h6 class="text-center">Connecting Students and Recruiters</h6>
-    <hr />
-    <p class="text-center">
-        Enhancing recruitment by providing recruiters with comprehensive student profiles, enabling proactive engagement and informed decision-making before career fairs.
-    </p>
-    <hr />
+<div style="display:flex; flex-direction: column; width: 100%;">
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 400px; margin-top: 25px; margin-bottom: 10px;">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="6" aria-label="Slide 7"></button>
+        </div>
 
-    <img class="justify-content-center" style="width:70%;" src="~/logo_head.png" />
-    <hr />
+        <div class="carousel-inner" style="height: 50vh; width: 100%;">
+            <div class="carousel-item active" style="height: 50vh;" data-bs-interval="10000">
+                <div class="container-fluid" style="height: 50vh;">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
 
-    <h4 class="display-8">Product Vision</h4>
-    <hr />
-    <p>
-        Our web app revolutionizes the recruitment process by providing recruiters with comprehensive profiles of students attending career fairs.
-        Through our platform, recruiters gain valuable insights into students' skills and backgrounds, enabling them to make informed decisions and
-        establish meaningful connections before the event. By facilitating proactive engagement between recruiters and students, we aim to optimize
-        the recruitment process for both parties.
-    </p>
+                    <div class="carousel-caption" style="top: 50%; transform: translateY(-50%); bottom: initial;">
+                        <h1>Welcome to Prodigy Scout!</h1>
+                        <hr>
+                        <p>
+                            Are you tired of losing track of promising candidates in the chaos of recruitment? Look no further!
+                            ProdigyScout is your comprehensive web application designed to streamline and organize your recruitment
+                            process from start to finish.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 50vh;" data-bs-interval="10000">
+                <div class="container-fluid" style="height: 50vh;">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
 
-    <hr />
+                    <div class="carousel-caption" style="top: 50%; transform: translateY(-50%); bottom: initial;">
+                        <h1>Effortless Tracking</h1>
+                        <hr>
+                        <p class="opacity-75">
+                            With ProdigyScout, keeping tabs on prospective students has never been easier. Our intuitive interface
+                            allows recruiters to effortlessly add, update, and manage student profiles with all the necessary details.
+                            From academic achievements to extracurricular activities, you can record every aspect that matters in your
+                            recruitment decision.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 50vh;" data-bs-interval="10000">
+                <div class="container-fluid" style="height: 50vh;">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
 
-    <h4 class="display-8">Value Proposition</h4>
-    <hr />
-    <p>
-        Our web app empowers recruiters to make the most of career fairs by offering them access to detailed student profiles beforehand.
-        By providing insights into students' skills and backgrounds, recruiters can identify promising candidates and engage with them proactively.
-        With features such as messaging and commenting, recruiters can establish meaningful connections early on, saving time and resources while
-        maximizing recruitment outcomes.
-    </p>
+                    <div class="carousel-caption" style="top: 50%; transform: translateY(-50%); bottom: initial;">
+                        <h1>Seamless Collaboration</h1>
+                        <hr>
+                        <p class="opacity-75">
+                            Say goodbye to scattered notes and emails. ProdigyScout facilitates seamless collaboration among your
+                            team members. Add comments, notes, and updates directly onto student profiles, ensuring everyone is on
+                            the same page throughout the recruitment journey.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 50vh;" data-bs-interval="10000">
+                <div class="container-fluid" style="height: 50vh;">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
 
+                    <div class="carousel-caption" style="top: 50%; transform: translateY(-50%); bottom: initial;">
+                        <h1>Customizable Pipeline</h1>
+                        <hr>
+                        <p class="opacity-75">
+                            Tailor your recruitment process to fit your unique needs with ProdigyScout's customizable pipeline feature.
+                            From initial interest to final offer, easily track each student's progress through your recruitment stages,
+                            ensuring no promising talent slips through the cracks.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 50vh;" data-bs-interval="10000">
+                <div class="container-fluid" style="height: 50vh;">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
+
+                    <div class="carousel-caption" style="top: 50%; transform: translateY(-50%); bottom: initial;">
+                        <h1>Stay Informed</h1>
+                        <hr>
+                        <p class="opacity-75">
+                            Never miss a beat with ProdigyScout's watchlist feature. Mark students of interest and receive real-time
+                            updates on their activities and achievements. Stay informed and ahead of the competition, so you can make
+                            the right moves at the right time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 50vh;" data-bs-interval="10000">
+                <div class="container-fluid" style="height: 50vh;">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
+
+                    <div class="carousel-caption" style="top: 50%; transform: translateY(-50%); bottom: initial;">
+                        <h1>Resume Repository</h1>
+                        <hr>
+                        <p class="opacity-75">
+                            Keep all candidate resumes organized and accessible with ProdigyScout's built-in resume repository. Upload
+                            resumes directly to student profiles for convenient review, eliminating the hassle of searching through
+                            countless files and folders.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item" style="height: 50vh;" data-bs-interval="10000">
+                <div class="container-fluid" style="height: 50vh;">
+                    <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)" /></svg>
+
+                    <div class="carousel-caption" style="top: 50%; transform: translateY(-50%); bottom: initial;">
+                        <h1>Your Recruitment Companion</h1>
+                        <hr>
+                        <p class="opacity-75">
+                            ProdigyScout is more than just a tool—it's your recruitment companion, dedicated to simplifying and enhancing
+                            your recruitment experience. Whether you're a seasoned recruiter or just starting out, ProdigyScout empowers
+                            you to find and recruit the best talent with confidence.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+  
 </div>
-
