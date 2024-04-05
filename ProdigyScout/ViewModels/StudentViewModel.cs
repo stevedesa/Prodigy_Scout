@@ -29,6 +29,7 @@ namespace ProdigyScout.ViewModels
                 GPA = student.GPA;
                 GraduationDate = student.GraduationDate;
                 IsWatched = student.ComplexDetails != null && student.ComplexDetails.IsWatched;
+                IsPipeline = student.ComplexDetails != null && student.ComplexDetails.IsPipeline;
             }
         }
 
@@ -65,6 +66,7 @@ namespace ProdigyScout.ViewModels
         }
 
         public bool IsWatched { get; set; }
+        public bool IsPipeline { get; set; }
 
         public IEnumerable<Prospect> Students { get; set; }
         public IEnumerable<ComplexDetails> ComplexData { get; set; }

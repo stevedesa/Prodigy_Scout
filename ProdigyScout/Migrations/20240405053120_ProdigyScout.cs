@@ -179,7 +179,8 @@ namespace ProdigyScout.Migrations
                 columns: table => new
                 {
                     ProspectId = table.Column<int>(type: "int", nullable: false),
-                    IsWatched = table.Column<bool>(type: "bit", nullable: false)
+                    IsWatched = table.Column<bool>(type: "bit", nullable: false),
+                    IsPipeline = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
