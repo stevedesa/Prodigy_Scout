@@ -34,7 +34,7 @@ namespace ProdigyScout.Tests
             };
 
             var insertedStudent = await _repository.InsertStudent(viewModel);
-            var students = await _repository.GetStudents("First Name", "John", "FirstName");
+            var students = await _repository.GetStudents("Name", "John", "FirstName");
             Assert.Single(students);
             await _repository.DeleteStudent(insertedStudent.Id);
         }
@@ -53,13 +53,13 @@ namespace ProdigyScout.Tests
             };
 
             var insertedStudent = await _repository.InsertStudent(viewModel);
-            var students = await _repository.GetStudents("Last Name", "Doe", "LastName");
+            var students = await _repository.GetStudents("Name", "Doe", "LastName");
             Assert.Single(students);
             await _repository.DeleteStudent(insertedStudent.Id);
         }
 
         [Fact]
-        public async Task Get_Students_FilterBy_Email()
+        public async Task Get_Students_FilterBy_Name_3()
         {
             StudentViewModel viewModel = new StudentViewModel()
             {
@@ -71,13 +71,13 @@ namespace ProdigyScout.Tests
                 GraduationDate = DateTime.Now.Date
             };
             var insertedStudent = await _repository.InsertStudent(viewModel);
-            var students = await _repository.GetStudents("Email", "john.doe@example.com", "Email");
+            var students = await _repository.GetStudents("Name", "Max", "Name");
             Assert.Single(students);
             await _repository.DeleteStudent(insertedStudent.Id);
         }
 
         [Fact]
-        public async Task Get_Students_FilterBy_Gender()
+        public async Task Get_Students_FilterBy_Name_4()
         {
             StudentViewModel viewModel = new StudentViewModel()
             {
@@ -89,7 +89,7 @@ namespace ProdigyScout.Tests
                 GraduationDate = DateTime.Now.Date
             };
             var insertedStudent = await _repository.InsertStudent(viewModel);
-            var students = await _repository.GetStudents("Gender", "Male", "Gender");
+            var students = await _repository.GetStudents("Name", "Jobs", "Name");
             Assert.Single(students);
             await _repository.DeleteStudent(insertedStudent.Id);
         }
@@ -107,7 +107,7 @@ namespace ProdigyScout.Tests
                 GraduationDate = DateTime.Now.Date
             };
             var insertedStudent = await _repository.InsertStudent(viewModel);
-            var students = await _repository.GetStudents("GPA", "3.2", "GPA");
+            var students = await _repository.GetStudents("Min GPA", "3.2", "Min GPA");
             Assert.Single(students);
             await _repository.DeleteStudent(insertedStudent.Id);
         }
@@ -125,42 +125,42 @@ namespace ProdigyScout.Tests
                 GraduationDate = DateTime.Now.Date
             };
             var insertedStudent = await _repository.InsertStudent(viewModel);
-            var students = await _repository.GetStudents("Graduation Date", "2022-06-01", "GraduationDate");
+            var students = await _repository.GetStudents("Min Grad Date", "2022-06-01", "GraduationDate");
             Assert.Single(students);
             await _repository.DeleteStudent(insertedStudent.Id);
         }
 
         [Fact]
-        public async Task Get_Student_ById()
+        public async Task GetStudent_ById()
         {
-            // Arrange.
+            // Arrange
             int studentId = 1;
 
-            // Act.
+            // Act
             Prospect student = await _repository.GetStudentByID(studentId);
 
-            // Assert.
+            // Assert
             Assert.Equal(Constants.LAST_NAME_1, student.LastName);
         }
 
         [Fact]
-        public async Task Get_Student_ById_NotFound()
+        public async Task GetStudent_ById_NotFound()
         {
-            // Arrange.
+            // Arrange
             int studentId = -1;
 
-            // Act.
+            // Act
             Prospect student = await _repository.GetStudentByID(studentId);
 
-            // Assert.
+            // Assert
             Assert.Null(student);
         }
 
         [Fact]
-        public async Task Get_Student_ById_After_Insert()
+        public async Task GetStudent_ById_After_Insert()
         {
-            // Arrange.
-            StudentViewModel viewModel = new StudentViewModel()
+            // Arrange
+            StudentViewModel viewModel = new StudentViewModel
             {
                 FirstName = "Test",
                 LastName = "GetById",
@@ -169,60 +169,60 @@ namespace ProdigyScout.Tests
                 GraduationDate = DateTime.Now
             };
 
-            // Act.
+            // Act
             Prospect newStudent = await _repository.InsertStudent(viewModel);
-            Prospect sudent = await _repository.GetStudentByID(newStudent.Id);
+            Prospect student = await _repository.GetStudentByID(newStudent.Id);
 
-            // Assert.
-            Assert.Same(newStudent, sudent);
-            Assert.Equal(sudent.LastName, viewModel.LastName);
+            // Assert
+            Assert.Same(newStudent, student);
+            Assert.Equal(student.LastName, viewModel.LastName);
 
-            // Cleanup.
+            // Cleanup
             await _repository.DeleteStudent(newStudent.Id);
         }
 
         [Fact]
         public async Task Insert_Student()
         {
-            // Arrange.
-            StudentViewModel viewModel = new StudentViewModel()
+            // Arrange
+            StudentViewModel viewModel = new StudentViewModel
             {
                 FirstName = "Test",
                 LastName = "Insert",
                 Gender = "Male",
-                GPA = (float)3.35,
+                GPA = 3.35f,
                 GraduationDate = DateTime.Now.Date
             };
 
-            // Act.
+            // Act
             Prospect newStudent = await _repository.InsertStudent(viewModel);
             Prospect student = await _repository.GetStudentByID(newStudent.Id);
 
-            // Assert.
+            // Assert
             Assert.Same(newStudent, student);
             Assert.Equal(student.LastName, viewModel.LastName);
             Assert.Equal(student.GraduationDate, viewModel.GraduationDate);
 
-            // Cleanup.
+            // Cleanup
             await _repository.DeleteStudent(newStudent.Id);
         }
 
         [Fact]
         public async Task Update_Student()
         {
-            // Arrange.
+            // Arrange
             string tempLastName = "Update_Update";
 
-            StudentViewModel viewModel = new StudentViewModel()
+            StudentViewModel viewModel = new StudentViewModel
             {
                 FirstName = "Test",
                 LastName = "Update",
                 Gender = "Male",
-                GPA = (float)3.35,
+                GPA = 3.35f,
                 GraduationDate = DateTime.Now.Date
             };
 
-            // Act.
+            // Act
             Prospect newStudent = await _repository.InsertStudent(viewModel);
 
             viewModel.Id = newStudent.Id;
@@ -232,28 +232,28 @@ namespace ProdigyScout.Tests
 
             Prospect student = await _repository.UpdateStudent(viewModel);
 
-            // Assert.
+            // Assert
             Assert.IsAssignableFrom<Prospect>(student);
             Assert.Equal(student.LastName, tempLastName);
 
-            // Cleanup.
+            // Cleanup
             await _repository.DeleteStudent(newStudent.Id);
         }
 
         [Fact]
         public async Task Delete_Student()
         {
-            // Arrange.
-            StudentViewModel viewModel = new StudentViewModel()
+            // Arrange
+            StudentViewModel viewModel = new StudentViewModel
             {
                 FirstName = "Test",
                 LastName = "Delete",
                 Gender = "Male",
-                GPA = (float)3.35,
+                GPA = 3.35f,
                 GraduationDate = DateTime.Now.Date
             };
 
-            // Act.
+            // Act
             Prospect newStudent = await _repository.InsertStudent(viewModel);
 
             int id = newStudent.Id;
@@ -261,7 +261,7 @@ namespace ProdigyScout.Tests
 
             Prospect student = await _repository.GetStudentByID(id);
 
-            // Assert.
+            // Assert
             Assert.Null(student);
         }
     }
