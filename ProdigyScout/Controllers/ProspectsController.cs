@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProdigyScout.Interfaces;
+using ProdigyScout.Models;
 using ProdigyScout.ViewModels;
 
 namespace ProdigyScout.Controllers
@@ -18,16 +19,17 @@ namespace ProdigyScout.Controllers
         // GET: Prospects
         public async Task<IActionResult> Index(string filterBy, string searchTerm, string sortOrder)
         {
-            ViewData["FirstNameSortParm"] = sortOrder == "FirstName" ? "FirstName_desc" : "FirstName";
-            ViewData["LastNameSortParm"] = sortOrder == "LastName" ? "LastName_desc" : "LastName";
+            ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
             ViewData["GPASortParm"] = sortOrder == "GPA" ? "GPA_desc" : "GPA";
             ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "GraduationDate_desc" : "GraduationDate";
 
             var students = await _studentRepository.GetStudents(filterBy, searchTerm, sortOrder);
+            var complexData = await _studentRepository.GetComplexData();
 
             var studentsVM = new StudentViewModel
             {
                 Students = students,
+                ComplexData = complexData,
                 FilterBy = filterBy,
                 SearchTerm = searchTerm,
                 CurrentSort = sortOrder
@@ -61,7 +63,7 @@ namespace ProdigyScout.Controllers
                 EmailID = student.Email,
                 GPA = student.GPA,
                 Gender = student.Gender,
-                GraduationDate = student.GraduationDate
+                GraduationDate = student.GraduationDate.Date
             };
 
             return View(studentViewModel);
@@ -186,6 +188,36 @@ namespace ProdigyScout.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _studentRepository.DeleteStudent(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Prospects/MarkAsWatch/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkAsWatch(int id)
+        {
+            var success = await _studentRepository.MarkAsWatch(id);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Prospects/MarkAsUnwatch/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkAsUnwatch(int id)
+        {
+            var success = await _studentRepository.MarkAsUnwatch(id);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
             return RedirectToAction(nameof(Index));
         }
     }

@@ -36,25 +36,16 @@ namespace ProdigyScout.Interfaces
             {
                 switch (filterBy)
                 {
-                    case "First Name":
-                        students = students.Where(s => s.FirstName.Contains(searchTerm));
+                    case "Name":
+                        students = students.Where(s => (s.FirstName + " " + s.LastName).Contains(searchTerm));
                         break;
-                    case "Last Name":
-                        students = students.Where(s => s.LastName.Contains(searchTerm));
-                        break;
-                    case "Email":
-                        students = students.Where(s => s.Email.Contains(searchTerm));
-                        break;
-                    case "Gender":
-                        students = students.Where(s => s.Gender.Contains(searchTerm));
-                        break;
-                    case "GPA":
+                    case "Min GPA":
                         if (float.TryParse(searchTerm, out float gpaValue))
                         {
                             students = students.Where(s => s.GPA >= gpaValue);
                         }
                         break;
-                    case "Graduation Date":
+                    case "Min Grad Date":
                         if (DateTime.TryParse(searchTerm, out DateTime graduationDate))
                         {
                             students = students.Where(s => s.GraduationDate.Date >= graduationDate.Date);
@@ -65,10 +56,8 @@ namespace ProdigyScout.Interfaces
 
             students = sortOrder switch
             {
-                "FirstName" => students.OrderBy(s => s.FirstName),
-                "FirstName_desc" => students.OrderByDescending(s => s.FirstName),
-                "LastName" => students.OrderBy(s => s.LastName),
-                "LastName_desc" => students.OrderByDescending(s => s.LastName),
+                "Name" => students.OrderBy(s => (s.FirstName + " " + s.LastName)),
+                "Name_desc" => students.OrderByDescending(s => (s.FirstName + " " + s.LastName)),
                 "GPA" => students.OrderBy(s => s.GPA),
                 "GPA_desc" => students.OrderByDescending(s => s.GPA),
                 "GraduationDate" => students.OrderBy(s => s.GraduationDate),
@@ -82,6 +71,11 @@ namespace ProdigyScout.Interfaces
         public async Task<Prospect> GetStudentByID(int studentId)
         {
             return await _context.Prospect.FirstOrDefaultAsync(s => s.Id == studentId);
+        }
+
+        public async Task<IEnumerable<ComplexDetails>> GetComplexData()
+        {
+            return await _context.ComplexDetails.ToListAsync();
         }
 
         public async Task<Prospect> InsertStudent(StudentViewModel studentViewModel)
@@ -98,8 +92,16 @@ namespace ProdigyScout.Interfaces
                 Email = studentViewModel.EmailID?.Trim(),
                 Gender = studentViewModel.Gender?.Trim(),
                 GPA = studentViewModel.GPA,
-                GraduationDate = studentViewModel.GraduationDate.Date
+                GraduationDate = studentViewModel.GraduationDate.Date,
             };
+
+            var complexDetails = new ComplexDetails
+            {
+                IsWatched = studentViewModel.IsWatched,
+                Prospect = prospect
+            };
+
+            prospect.ComplexDetails = complexDetails;
 
             _context.Add(prospect);
             await _context.SaveChangesAsync();
@@ -109,7 +111,7 @@ namespace ProdigyScout.Interfaces
 
         public async Task<Prospect> UpdateStudent(StudentViewModel studentViewModel)
         {
-            var prospect = await _context.Prospect.FindAsync(studentViewModel.Id);
+            var prospect = await _context.Prospect.Include(p => p.ComplexDetails).FirstOrDefaultAsync(p => p.Id == studentViewModel.Id);
 
             if (prospect == null)
             {
@@ -122,6 +124,15 @@ namespace ProdigyScout.Interfaces
             prospect.Gender = studentViewModel.Gender?.Trim();
             prospect.GPA = studentViewModel.GPA;
             prospect.GraduationDate = studentViewModel.GraduationDate;
+
+            if (prospect.ComplexDetails == null)
+            {
+                prospect.ComplexDetails = new ComplexDetails { ProspectId = studentViewModel.Id, IsWatched = studentViewModel.IsWatched };
+            }
+            else
+            {
+                prospect.ComplexDetails.IsWatched = studentViewModel.IsWatched;
+            }
 
             _context.Update(prospect);
             await _context.SaveChangesAsync();
@@ -137,6 +148,38 @@ namespace ProdigyScout.Interfaces
                 _context.Prospect.Remove(prospect);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task<bool> MarkAsWatch(int studentId)
+        {
+            return await MarkAsWatchUnwatch(studentId, true);
+        }
+
+        public async Task<bool> MarkAsUnwatch(int studentId)
+        {
+            return await MarkAsWatchUnwatch(studentId, false);
+        }
+
+        public async Task<bool> MarkAsWatchUnwatch(int studentId, bool isWatched)
+        {
+            var prospect = await _context.Prospect.Include(p => p.ComplexDetails).FirstOrDefaultAsync(p => p.Id == studentId);
+
+            if (prospect == null)
+            {
+                return false;
+            }
+
+            if (prospect.ComplexDetails == null)
+            {
+                prospect.ComplexDetails = new ComplexDetails { ProspectId = studentId, IsWatched = isWatched };
+            }
+            else
+            {
+                prospect.ComplexDetails.IsWatched = isWatched;
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
