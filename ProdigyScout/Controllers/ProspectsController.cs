@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using ProdigyScout.Interfaces;
 using ProdigyScout.Models;
 using ProdigyScout.ViewModels;
@@ -19,10 +20,6 @@ namespace ProdigyScout.Controllers
         // GET: Prospects
         public async Task<IActionResult> Index(string filterBy, string searchTerm, string sortOrder)
         {
-            ViewData["NameSortParm"] = sortOrder == "Name" ? "Name_desc" : "Name";
-            ViewData["GPASortParm"] = sortOrder == "GPA" ? "GPA_desc" : "GPA";
-            ViewData["GraduationDateSortParm"] = sortOrder == "GraduationDate" ? "GraduationDate_desc" : "GraduationDate";
-
             var students = await _studentRepository.GetStudents(filterBy, searchTerm, sortOrder);
             var complexData = await _studentRepository.GetComplexData();
 
