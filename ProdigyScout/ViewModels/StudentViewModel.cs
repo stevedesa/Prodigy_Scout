@@ -74,6 +74,8 @@ namespace ProdigyScout.ViewModels
         public string SearchTerm { get; set; }
         public string CurrentSort { get; set; }
         public IEnumerable<string> FilterOptions => new List<string> { "Name", "Min GPA", "Min Grad Date" };
-
+        public IEnumerable<string> SortOptions => new List<string> {
+            "Prodigies", "Prospects", "Name [A]", "Name [D]", "GPA [A]", "GPA [D]", "GradDate [A]", "GradDate [D]" 
+        };
     }
 }
