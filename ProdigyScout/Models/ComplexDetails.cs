@@ -9,6 +9,7 @@ namespace ProdigyScout.Models
         [ForeignKey("Prospect")]
         public int ProspectId { get; set; }
         public bool IsWatched { get; set; }
+        public bool IsPipeline { get; set; }
         public virtual Prospect Prospect { get; set; }
     }
 }

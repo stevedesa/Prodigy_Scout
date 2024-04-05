@@ -98,6 +98,7 @@ namespace ProdigyScout.Interfaces
             var complexDetails = new ComplexDetails
             {
                 IsWatched = studentViewModel.IsWatched,
+                IsPipeline = studentViewModel.IsPipeline,
                 Prospect = prospect
             };
 
@@ -127,11 +128,16 @@ namespace ProdigyScout.Interfaces
 
             if (prospect.ComplexDetails == null)
             {
-                prospect.ComplexDetails = new ComplexDetails { ProspectId = studentViewModel.Id, IsWatched = studentViewModel.IsWatched };
+                prospect.ComplexDetails = new ComplexDetails { 
+                    ProspectId = studentViewModel.Id, 
+                    IsWatched = studentViewModel.IsWatched,
+                    IsPipeline= studentViewModel.IsPipeline,
+                };
             }
             else
             {
                 prospect.ComplexDetails.IsWatched = studentViewModel.IsWatched;
+                prospect.ComplexDetails.IsPipeline = studentViewModel.IsPipeline;
             }
 
             _context.Update(prospect);
@@ -176,6 +182,38 @@ namespace ProdigyScout.Interfaces
             else
             {
                 prospect.ComplexDetails.IsWatched = isWatched;
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> MarkAsPipeline(int studentId)
+        {
+            return await MarkAsPipelineNonPipeline(studentId, true);
+        }
+
+        public async Task<bool> MarkAsNonPipeline(int studentId)
+        {
+            return await MarkAsPipelineNonPipeline(studentId, false);
+        }
+
+        public async Task<bool> MarkAsPipelineNonPipeline(int studentId, bool isPipeline)
+        {
+            var prospect = await _context.Prospect.Include(p => p.ComplexDetails).FirstOrDefaultAsync(p => p.Id == studentId);
+
+            if (prospect == null)
+            {
+                return false;
+            }
+
+            if (prospect.ComplexDetails == null)
+            {
+                prospect.ComplexDetails = new ComplexDetails { ProspectId = studentId, IsPipeline = isPipeline };
+            }
+            else
+            {
+                prospect.ComplexDetails.IsPipeline = isPipeline;
             }
 
             await _context.SaveChangesAsync();

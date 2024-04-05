@@ -220,5 +220,35 @@ namespace ProdigyScout.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        // POST: Prospects/MarkAsPipeline/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkAsPipeline(int id)
+        {
+            var success = await _studentRepository.MarkAsPipeline(id);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // POST: Prospects/MarkAsNonPipeline/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> MarkAsNonPipeline(int id)
+        {
+            var success = await _studentRepository.MarkAsNonPipeline(id);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

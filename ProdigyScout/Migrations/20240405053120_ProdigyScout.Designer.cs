@@ -12,7 +12,7 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240404221147_ProdigyScout")]
+    [Migration("20240405053120_ProdigyScout")]
     partial class ProdigyScout
     {
         /// <inheritdoc />
@@ -231,6 +231,9 @@ namespace ProdigyScout.Migrations
                 {
                     b.Property<int>("ProspectId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsPipeline")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsWatched")
                         .HasColumnType("bit");

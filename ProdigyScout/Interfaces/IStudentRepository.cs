@@ -14,5 +14,8 @@ namespace ProdigyScout.Interfaces
         Task<bool> MarkAsWatch(int studentId);
         Task<bool> MarkAsUnwatch(int studentId);
         Task<bool> MarkAsWatchUnwatch(int studentId, bool isWatched);
+        Task<bool> MarkAsPipeline(int studentId);
+        Task<bool> MarkAsNonPipeline(int studentId);
+        Task<bool> MarkAsPipelineNonPipeline(int studentId, bool isPipeline);
     }
 }

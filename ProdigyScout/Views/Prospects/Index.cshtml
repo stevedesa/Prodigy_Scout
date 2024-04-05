@@ -109,6 +109,9 @@
                     <image src="./blackstar.png" alt="Watch Student?" width="30" height="30">
                 </th>
                 <th class="align-middle" scope="col">
+                    <image src="./blackhandshake.png" alt="Pipeline Status" width="30" height="30">
+                </th>
+                <th class="align-middle" scope="col">
                     <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">Name</a>
                 </th>
                 <th class="align-middle" scope="col">
@@ -131,7 +134,7 @@
         <tbody class="table-group-divider">
     @foreach (var item in Model.Students) {
             <tr>
-                    <td class="align-middle">
+                <td class="align-middle">
                     @if (item.ComplexDetails == null || !item.ComplexDetails.IsWatched) //UnWatched
                     {
                         <form asp-action="MarkAsWatch" method="post">
@@ -145,6 +148,21 @@
                             <input type="hidden" name="id" value="@item.Id" />
                             <input type="image" src="./goldstar.png" alt="Mark as Unwatch" width="30" height="30">
                         </form>
+                    }
+                 <td class="align-middle">
+                    @if (item.ComplexDetails == null || !item.ComplexDetails.IsPipeline) //NonPipeline
+                    {
+                    <form asp-action="MarkAsPipeline" method="post">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <input type="image" src="./nohandshake.png" alt="Mark as Pipeline" width="30" height="30">
+                    </form>
+                    }
+                    else //Pipeline
+                    {
+                    <form asp-action="MarkAsNonPipeline" method="post">
+                        <input type="hidden" name="id" value="@item.Id" />
+                        <input type="image" src="./yeshandshake.png" alt="Mark as Non Pipeline" width="30" height="30">
+                    </form>
                     }
                 </td>
                     <td class="align-middle">
