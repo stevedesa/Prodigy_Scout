@@ -78,6 +78,7 @@ namespace ProdigyScout.Data.SeedData
                     {
                         IsWatched = false, // Set IsWatched to false
                         IsPipeline = false, // Set Is Pipeline to false
+                        Comment = null, // Set Comment String to null
                         Prospect = prospect // Associate ComplexDetails with Prospect
                     };
 

@@ -1,21 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
+using ProdigyScout.Interfaces;
 using ProdigyScout.Models;
+using ProdigyScout.ViewModels;
 using System.Diagnostics;
 
 namespace ProdigyScout.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IStudentRepository _studentRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IStudentRepository studentRepository)
         {
-            _logger = logger;
+            _studentRepository = studentRepository;
         }
 
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var students = await _studentRepository.GetStudents("", "", "");
+            var complexData = await _studentRepository.GetComplexData();
+
+            var homeViewModel = new StudentViewModel
+            {
+                Students = students,
+                ComplexData = complexData,
+            };
+
+            return View(homeViewModel);
         }
 
         public IActionResult Privacy()

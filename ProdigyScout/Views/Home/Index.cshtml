@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model ProdigyScout.ViewModels.StudentViewModel
+
+@{
+    ViewData["Title"] = "Home";
 }
 
 <div style="display:flex; flex-direction: column; width: 100%;">
@@ -132,3 +134,253 @@
         </button>
     </div> 
 </div>
+
+<div class="py-3">
+    <h2><b>Your Prodigies and Prospective Hires</b></h2>
+</div>
+
+@{
+    if (User.Identity.IsAuthenticated) // Check if the user is authenticated
+    {
+        <div style="display: flex; padding: 0 35px; align-items: center; justify-content: center; height: 350px;">
+            @if (Model.Students.Any(item => item.ComplexDetails.IsWatched || item.ComplexDetails.IsPipeline))
+            {
+                <div class="wrapper">
+                    <ul class="carouselx">
+                        @foreach (var item in Model.Students)
+                        {
+                            @if (item.ComplexDetails.IsWatched || item.ComplexDetails.IsPipeline)
+                            {
+                                <li class="card">
+                                    <div class="imgdiv" style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 25px;">
+                                        @if (!item.ComplexDetails.IsWatched) //UnWatched
+                                        {
+                                            <img src="./unstarred.png" alt="Mark as Watch" width="75" height="75" class="opacity-25" />
+                                        }
+                                        else //Watched
+                                        {
+                                            <img src="./goldstar.png" alt="Mark as Unwatch" width="75" height="75">
+                                        }
+                                        <div class="img">
+                                            <img src="./yeshandshake.png" alt="Profile Picture" draggable="false">
+                                        </div>
+                                        @if (!item.ComplexDetails.IsPipeline) //Non Pipeline
+                                        {
+                                            <img src="./nohandshake.png" alt="Mark as Watch" width="75" height="75" class="opacity-50" />
+                                        }
+                                        else //Pipeline
+                                        {
+                                            <img src="./yeshandshake.png" alt="Mark as Unwatch" width="75" height="75">
+                                        }
+                                    </div>
+                                <h2>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h2>
+                                <span>Major</span>
+                            </li>
+                        }
+                    }
+                </ul>
+                </div>
+            }
+            else
+            {
+                <div class="container-fluid" style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%;">
+                    <div class="blurred-content" style="height: 100%; width: 100%;"></div>
+                    <div class="bg-content" style="display: flex; align-items: center; justify-content: center;">
+                        <h5>You have yet to mark a Student as a Prodigy or a Prospective Hire</h5>
+                    </div>
+                </div>
+            }
+</div>
+    }
+    else
+    {
+        <div class="container-fluid" style="display: flex; align-items: center; justify-content: center; height: 130px; width: 100%;">
+            <div class="blurred-content" style="height: 100%; width: 100%;"></div>
+            <div class="bg-content" style="display: flex; align-items: center; justify-content: center;">
+                    <partial name="_LoginPartial" />
+                </div>
+        </div>
+    }
+}
+
+
+
+<style>
+    .blurred-content {
+        background-color: #FFFFFF;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 200 200'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='100' y1='33' x2='100' y2='-3'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='1'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='100' y1='135' x2='100' y2='97'%3E%3Cstop offset='0' stop-color='%23000' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23000' stop-opacity='1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg fill='%23d4d4d4' fill-opacity='0.6'%3E%3Crect x='100' width='100' height='100'/%3E%3Crect y='100' width='100' height='100'/%3E%3C/g%3E%3Cg fill-opacity='0.5'%3E%3Cpolygon fill='url(%23a)' points='100 30 0 0 200 0'/%3E%3Cpolygon fill='url(%23b)' points='100 100 0 130 0 100 200 100 200 130'/%3E%3C/g%3E%3C/svg%3E");
+        filter: blur(6px);
+        -webkit-filter: blur(6px);
+    }
+
+    .bg-content {
+        background-color: rgba(0,0,0, 0.5);
+        position: absolute;
+        height: 80px;
+        width: 80%;
+        border-radius: 20px;
+        z-index: 2;
+    }
+
+    .wrapper {
+        width: 100%;
+        position: relative;
+    }
+
+        .wrapper i {
+            top: 50%;
+            height: 50px;
+            width: 50px;
+            cursor: pointer;
+            font-size: 1.25rem;
+            position: absolute;
+            text-align: center;
+            line-height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.23);
+            transform: translateY(-50%);
+            transition: transform 0.1s linear;
+        }
+
+            .wrapper i:active {
+                transform: translateY(-50%) scale(0.85);
+            }
+
+        .wrapper .carouselx {
+            display: grid;
+            grid-auto-flow: column;
+            grid-auto-columns: calc((100% / 3) - 12px);
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 16px;
+            border-radius: 8px;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+
+    .carouselx::-webkit-scrollbar {
+        display: none;
+    }
+
+    .carouselx.no-transition {
+        scroll-behavior: auto;
+    }
+
+    .carouselx.dragging {
+        scroll-snap-type: none;
+        scroll-behavior: auto;
+    }
+
+        .carouselx.dragging .card {
+            cursor: grab;
+            user-select: none;
+        }
+
+    .carouselx :where(.card, .img) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carouselx .card {
+        scroll-snap-align: start;
+        height: 300px;
+        list-style: none;
+        background: #fff;
+        cursor: pointer;
+        padding-bottom: 15px;
+        flex-direction: column;
+        border-radius: 8px;
+        width: 100%;
+    }
+
+        .carouselx .card .img {
+            background: #000000;
+            height: 150px;
+            width: 150px;
+            border-radius: 50%;
+        }
+
+    .card .img img {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #fff;
+    }
+
+    .carouselx .card h2 {
+        font-weight: 500;
+        font-size: 1.56rem;
+        margin: 30px 0 5px;
+    }
+
+    .carouselx .card span {
+        color: #6A6D78;
+        font-size: 1.31rem;
+    }
+</style>
+<script>
+    const wrapper = document.querySelector(".wrapper");
+    const carousel = document.querySelector(".carouselx");
+    const firstCardWidth = carousel.querySelector(".card").offsetWidth;
+    const carouselChildrens = [...carousel.children];
+    let isDragging = false, isAutoPlay = true, startX, startScrollLeft, timeoutId;
+
+    let cardPerView = Math.round(carousel.offsetWidth / firstCardWidth);
+
+    carouselChildrens.slice(-cardPerView).reverse().forEach(card => {
+        carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
+    });
+
+    carouselChildrens.slice(0, cardPerView).forEach(card => {
+        carousel.insertAdjacentHTML("beforeend", card.outerHTML);
+    });
+
+    carousel.classList.add("no-transition");
+    carousel.scrollLeft = carousel.offsetWidth;
+    carousel.classList.remove("no-transition");
+
+    const dragStart = (e) => {
+        isDragging = true;
+        carousel.classList.add("dragging");
+
+        startX = e.pageX;
+        startScrollLeft = carousel.scrollLeft;
+    }
+    const dragging = (e) => {
+        if (!isDragging) return;
+
+        carousel.scrollLeft = startScrollLeft - (e.pageX - startX);
+    }
+    const dragStop = () => {
+        isDragging = false;
+        carousel.classList.remove("dragging");
+    }
+    const infiniteScroll = () => {
+        if (carousel.scrollLeft === 0) {
+            carousel.classList.add("no-transition");
+            carousel.scrollLeft = carousel.scrollWidth - (2 * carousel.offsetWidth);
+            carousel.classList.remove("no-transition");
+        }
+        else if (Math.ceil(carousel.scrollLeft) === carousel.scrollWidth - carousel.offsetWidth) {
+            carousel.classList.add("no-transition");
+            carousel.scrollLeft = carousel.offsetWidth;
+            carousel.classList.remove("no-transition");
+        }
+        clearTimeout(timeoutId);
+        if (!wrapper.matches(":hover")) autoPlay();
+    }
+    const autoPlay = () => {
+        if (window.innerWidth < 800 || !isAutoPlay) return;
+        timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2000);
+    }
+    autoPlay();
+    carousel.addEventListener("mousedown", dragStart);
+    carousel.addEventListener("mousemove", dragging);
+    document.addEventListener("mouseup", dragStop);
+    carousel.addEventListener("scroll", infiniteScroll);
+    wrapper.addEventListener("mouseenter", () => clearTimeout(timeoutId));
+    wrapper.addEventListener("mouseleave", autoPlay);
+</script>

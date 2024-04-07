@@ -229,11 +229,17 @@ namespace ProdigyScout.Migrations
                     b.Property<int>("ProspectId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Comment")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsPipeline")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsWatched")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastCommentEdited")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ProspectId");
 

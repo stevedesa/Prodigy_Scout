@@ -180,7 +180,9 @@ namespace ProdigyScout.Migrations
                 {
                     ProspectId = table.Column<int>(type: "int", nullable: false),
                     IsWatched = table.Column<bool>(type: "bit", nullable: false),
-                    IsPipeline = table.Column<bool>(type: "bit", nullable: false)
+                    IsPipeline = table.Column<bool>(type: "bit", nullable: false),
+                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastCommentEdited = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
