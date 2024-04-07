@@ -247,5 +247,20 @@ namespace ProdigyScout.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        // POST: Prospects/AddOrUpdateComment/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddOrUpdateComment(int id, string comment)
+        {
+            var success = await _studentRepository.AddOrUpdateComment(id, comment);
+
+            if (!success)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

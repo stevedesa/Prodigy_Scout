@@ -74,16 +74,54 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <h5 class="card-title">@item.FirstName @item.LastName</h5>
-                        <p class="card-text">Email: @item.Email</p>
-                        <p class="card-text">Gender: @item.Gender</p>
                         <p class="card-text">GPA: @item.GPA</p>
                         <p class="card-text">Graduation Date: @item.GraduationDateFormatted</p>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        <p class="card-text">Gender: @item.Gender</p>
+                        <p class="card-text">Email: @item.Email</p>
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#listStudentModal-@item.Id">More Details</button>
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade modal-dark" id="listStudentModal-@item.Id" tabindex="-1" aria-labelledby="listStudentModalLabel-@item.Id" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-dark text-light">
+
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="listStudentModalLabel-@item.Id">@item.FirstName @item.LastName</h5>
+                            <button type="button" class="bg-light btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Major: </h6>
+                            <h6 class="modal-title" id="listStudentModalLabel-@item.Id">GPA: <b>@item.GPA</b></h6>
+                            <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>
+                            <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Gender: <b>@item.Gender</b></h6>
+                            <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Email: <b>@item.Email</b></h6>
+                            <hr />
+                            <form asp-action="AddOrUpdateComment" method="post">
+                                <div class="mb-3">
+                                    <label for="comment" class="form-label">Comment:</label>
+                                    <textarea class="form-control" id="comment" name="Comment" rows="3">@item.ComplexDetails.Comment</textarea>
+                                    @if (item.ComplexDetails.LastCommentEdited.Year > 2023)
+                                    {
+                                        <label><i>Last edited: @item.ComplexDetails.LastCommentEdited.ToString("yyyy-MM-dd HH:mm:ss")</i></label>
+                                    }
+                                </div>
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button type="submit" class="btn btn-primary">Save Comment</button>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer d-flex justify-content-center">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         }
     </div>
 </div>
@@ -114,7 +152,10 @@
                     Email ID
                 </th>
                 <th class="align-middle" scope="col">
-                    Edit | Details | Delete
+                    <image src="./blackcomment.png" alt="Pipeline Status" width="30" height="30">
+                </th>
+                <th class="align-middle" scope="col">
+                    More Details
                 </th>
             </tr>
         </thead>
@@ -136,7 +177,8 @@
                             <input type="image" src="./goldstar.png" alt="Mark as Unwatch" width="30" height="30">
                         </form>
                     }
-                 <td class="align-middle">
+                </td>
+                <td class="align-middle">
                     @if (item.ComplexDetails == null || !item.ComplexDetails.IsPipeline) //NonPipeline
                     {
                     <form asp-action="MarkAsPipeline" method="post">
@@ -155,7 +197,6 @@
                 <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
                 </td>
-                </td>
                     <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.GPA)
                 </td>
@@ -169,11 +210,60 @@
                         @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td class="align-middle">
-                        <a asp-action="Edit" asp-route-id="@item.Id"><b>Edit</b></a> |
-                        <a asp-action="Details" asp-route-id="@item.Id"><b>Details</b></a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id"><b>Delete</b></a>
+                    @if (item.ComplexDetails.Comment == null) //Not Commented
+                    {
+                            <input type="image" src="./nocomment.png" alt="Mark as Watch" width="30" height="30" class="opacity-25">
+                    }
+                    else //Commented
+                    {
+                            <input type="image" src="./yescomment.png" alt="Mark as Unwatch" width="30" height="30">
+                    }
                 </td>
+                <td class="align-middle">
+                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#studentModal-@item.Id">More Details</button>
+                </td>
+
+                    <div class="modal fade modal-dark" id="studentModal-@item.Id" tabindex="-1" aria-labelledby="studentModalLabel-@item.Id" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content bg-dark text-light">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="studentModalLabel-@item.Id">@item.FirstName @item.LastName</h5>
+                                    <button type="button" class="bg-light btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <h6 class="modal-title" id="studentModalLabel-@item.Id">Major: </h6>
+                                    <h6 class="modal-title" id="studentModalLabel-@item.Id">GPA: <b>@item.GPA</b></h6>
+                                    <h6 class="modal-title" id="studentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>
+                                    <h6 class="modal-title" id="studentModalLabel-@item.Id">Gender: <b>@item.Gender</b></h6>
+                                    <h6 class="modal-title" id="studentModalLabel-@item.Id">Email: <b>@item.Email</b></h6>
+                                    <hr />
+                                    <form asp-action="AddOrUpdateComment" method="post">
+                                        <div class="mb-3">
+                                            <label for="comment" class="form-label">Comment:</label>
+                                            <textarea class="form-control" id="comment" name="Comment" rows="3">@item.ComplexDetails.Comment</textarea>
+                                            @if (item.ComplexDetails.LastCommentEdited.Year > 2023)
+                                            {
+                                                <label><i>Last edited: @item.ComplexDetails.LastCommentEdited.ToString("yyyy-MM-dd HH:mm:ss")</i></label>
+                                            }
+                                        </div>
+                                        <input type="hidden" name="id" value="@item.Id" />
+                                        <button type="submit" class="btn btn-primary">Save Comment</button>
+                                    </form>
+                                </div>
+
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a> |
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </tr>
+
+                
     }
         </tbody>
     </table>

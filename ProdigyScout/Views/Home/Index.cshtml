@@ -142,42 +142,54 @@
 @{
     if (User.Identity.IsAuthenticated) // Check if the user is authenticated
     {
-    <div style="display: flex; padding: 0 35px; align-items: center; justify-content: center; height: 350px;">
-        <div class="wrapper">
-        <ul class="carouselx">
-            @foreach (var item in Model.Students)
+        <div style="display: flex; padding: 0 35px; align-items: center; justify-content: center; height: 350px;">
+            @if (Model.Students.Any(item => item.ComplexDetails.IsWatched || item.ComplexDetails.IsPipeline))
             {
-                @if (item.ComplexDetails.IsWatched || item.ComplexDetails.IsPipeline)
-                {
-                    <li class="card">
-                        <div class="imgdiv" style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 25px;">
-                            @if (!item.ComplexDetails.IsWatched) //UnWatched
+                <div class="wrapper">
+                    <ul class="carouselx">
+                        @foreach (var item in Model.Students)
+                        {
+                            @if (item.ComplexDetails.IsWatched || item.ComplexDetails.IsPipeline)
                             {
-                                <img src="./unstarred.png" alt="Mark as Watch" width="75" height="75" class="opacity-25" />
-                            }
-                            else //Watched
-                            {
-                                <img src="./goldstar.png" alt="Mark as Unwatch" width="75" height="75">
-                            }
-                            <div class="img">
-                                <img src="./yeshandshake.png" alt="Profile Picture" draggable="false">
-                            </div>
-                            @if (!item.ComplexDetails.IsPipeline) //Non Pipeline
-                            {
-                                <img src="./nohandshake.png" alt="Mark as Watch" width="75" height="75" class="opacity-50" />
-                            }
-                            else //Pipeline
-                            {
-                                <img src="./yeshandshake.png" alt="Mark as Unwatch" width="75" height="75">
-                            }
-                        </div>
-                        <h2>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h2>
-                        <span>Major</span>
-                    </li>
-                }
+                                <li class="card">
+                                    <div class="imgdiv" style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 25px;">
+                                        @if (!item.ComplexDetails.IsWatched) //UnWatched
+                                        {
+                                            <img src="./unstarred.png" alt="Mark as Watch" width="75" height="75" class="opacity-25" />
+                                        }
+                                        else //Watched
+                                        {
+                                            <img src="./goldstar.png" alt="Mark as Unwatch" width="75" height="75">
+                                        }
+                                        <div class="img">
+                                            <img src="./yeshandshake.png" alt="Profile Picture" draggable="false">
+                                        </div>
+                                        @if (!item.ComplexDetails.IsPipeline) //Non Pipeline
+                                        {
+                                            <img src="./nohandshake.png" alt="Mark as Watch" width="75" height="75" class="opacity-50" />
+                                        }
+                                        else //Pipeline
+                                        {
+                                            <img src="./yeshandshake.png" alt="Mark as Unwatch" width="75" height="75">
+                                        }
+                                    </div>
+                                <h2>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</h2>
+                                <span>Major</span>
+                            </li>
+                        }
+                    }
+                </ul>
+                </div>
             }
-        </ul>
-    </div>
+            else
+            {
+                <div class="container-fluid" style="display: flex; align-items: center; justify-content: center; height: 100%; width: 100%;">
+                    <div class="blurred-content" style="height: 100%; width: 100%;"></div>
+                    <div class="bg-content" style="display: flex; align-items: center; justify-content: center;">
+                        <h5>You have yet to mark a Student as a Prodigy or a Prospective Hire</h5>
+                    </div>
+                </div>
+            }
 </div>
     }
     else

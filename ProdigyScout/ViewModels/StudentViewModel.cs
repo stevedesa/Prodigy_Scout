@@ -67,6 +67,7 @@ namespace ProdigyScout.ViewModels
 
         public bool IsWatched { get; set; }
         public bool IsPipeline { get; set; }
+        public string Comment { get; set; }
 
         public IEnumerable<Prospect> Students { get; set; }
         public IEnumerable<ComplexDetails> ComplexData { get; set; }

@@ -221,5 +221,28 @@ namespace ProdigyScout.Interfaces
             await _context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> AddOrUpdateComment(int studentId, string comment)
+        {
+            var prospect = await _context.Prospect.Include(p => p.ComplexDetails).FirstOrDefaultAsync(p => p.Id == studentId);
+
+            if (prospect == null)
+            {
+                return false;
+            }
+
+            if (prospect.ComplexDetails == null)
+            {
+                prospect.ComplexDetails = new ComplexDetails { ProspectId = studentId, Comment = comment, LastCommentEdited = DateTime.Now };
+            }
+            else
+            {
+                prospect.ComplexDetails.Comment = comment;
+                prospect.ComplexDetails.LastCommentEdited = DateTime.Now;
+            }
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

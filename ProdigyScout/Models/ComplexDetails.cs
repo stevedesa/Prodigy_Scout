@@ -10,6 +10,8 @@ namespace ProdigyScout.Models
         public int ProspectId { get; set; }
         public bool IsWatched { get; set; }
         public bool IsPipeline { get; set; }
+        public string Comment { get; set; }
+        public DateTime LastCommentEdited { get; set; }
         public virtual Prospect Prospect { get; set; }
     }
 }
