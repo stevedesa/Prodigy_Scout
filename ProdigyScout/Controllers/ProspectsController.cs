@@ -85,6 +85,14 @@ namespace ProdigyScout.Controllers
                     return View(studentViewModel);
                 }
 
+                var NewStudentemail = await _studentRepository.InsertStudent(studentViewModel);
+
+                if (NewStudentemail != null)
+                {
+                    ModelState.AddModelError(string.Empty, "This Email Already Exists in our Database");
+                    return View(studentViewModel);
+                }
+
                 var student = await _studentRepository.InsertStudent(studentViewModel);
 
                 if (student == null)

@@ -12,8 +12,8 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240407071134_ProdigyScout")]
-    partial class ProdigyScout
+    [Migration("20240410000405_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
