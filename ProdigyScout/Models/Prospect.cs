@@ -9,6 +9,7 @@
         public string Gender { get; set; }
         public float GPA { get; set; }
         public DateTime GraduationDate { get; set; }
+        public string Degree { get; set; }
 
         public string GraduationDateFormatted
         {

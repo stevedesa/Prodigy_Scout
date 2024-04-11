@@ -71,7 +71,8 @@ namespace ProdigyScout.Data.SeedData
                         Email = values[2],
                         Gender = values[3],
                         GPA = float.Parse(values[4]),
-                        GraduationDate = DateTime.Parse(values[5])
+                        GraduationDate = DateTime.Parse(values[5]),
+                        Degree = values[6],
                     };
 
                     var complexDetails = new ComplexDetails

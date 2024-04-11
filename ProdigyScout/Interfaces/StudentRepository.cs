@@ -51,6 +51,9 @@ namespace ProdigyScout.Interfaces
                             students = students.Where(s => s.GraduationDate.Date >= graduationDate.Date);
                         }
                         break;
+                    case "Degree":
+                        students = students.Where(s => (s.Degree).Contains(searchTerm));
+                        break;
                 }
             }
 
@@ -94,6 +97,7 @@ namespace ProdigyScout.Interfaces
                 Email = studentViewModel.EmailID?.Trim(),
                 Gender = studentViewModel.Gender?.Trim(),
                 GPA = studentViewModel.GPA,
+                Degree = studentViewModel.Degree?.Trim(),
                 GraduationDate = studentViewModel.GraduationDate.Date,
             };
 
@@ -126,6 +130,7 @@ namespace ProdigyScout.Interfaces
             prospect.Email = studentViewModel.EmailID?.Trim();
             prospect.Gender = studentViewModel.Gender?.Trim();
             prospect.GPA = studentViewModel.GPA;
+            prospect.Degree = studentViewModel.Degree?.Trim();
             prospect.GraduationDate = studentViewModel.GraduationDate;
 
             if (prospect.ComplexDetails == null)

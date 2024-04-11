@@ -12,8 +12,8 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240410000405_1")]
-    partial class _1
+    [Migration("20240410150437_WorkPlease")]
+    partial class WorkPlease
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -256,6 +256,9 @@ namespace ProdigyScout.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Degree")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
