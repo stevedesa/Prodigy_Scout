@@ -14,6 +14,7 @@ namespace ProdigyScout.ViewModels
             Gender = string.Empty;
             EmailID = string.Empty;
             GPA = 0;
+            Degree = string.Empty;
             GraduationDate = DateTime.Today;
         }
 
@@ -28,6 +29,7 @@ namespace ProdigyScout.ViewModels
                 Gender = student.Gender;
                 GPA = student.GPA;
                 GraduationDate = student.GraduationDate;
+                Degree = student.Degree;
                 IsWatched = student.ComplexDetails != null && student.ComplexDetails.IsWatched;
                 IsPipeline = student.ComplexDetails != null && student.ComplexDetails.IsPipeline;
             }
@@ -56,6 +58,10 @@ namespace ProdigyScout.ViewModels
         public float GPA { get; set; }
 
         [Required]
+        [DisplayName("Degree")]
+        public string Degree { get; set; }
+
+        [Required]
         [DisplayName("Graduation Date")]
         [DataType(DataType.Date)]
         public DateTime GraduationDate { get; set; }
@@ -74,7 +80,7 @@ namespace ProdigyScout.ViewModels
         public string FilterBy { get; set; }
         public string SearchTerm { get; set; }
         public string CurrentSort { get; set; }
-        public IEnumerable<string> FilterOptions => new List<string> { "Name", "Min GPA", "Min Grad Date" };
+        public IEnumerable<string> FilterOptions => new List<string> { "Name", "Min GPA", "Min Grad Date", "Degree" };
         public IEnumerable<string> SortOptions => new List<string> {
             "Prodigies", "Prospects", "Name [A]", "Name [D]", "GPA [A]", "GPA [D]", "GradDate [A]", "GradDate [D]" 
         };

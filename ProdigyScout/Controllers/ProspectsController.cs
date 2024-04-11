@@ -60,6 +60,7 @@ namespace ProdigyScout.Controllers
                 EmailID = student.Email,
                 GPA = student.GPA,
                 Gender = student.Gender,
+                Degree = student.Degree,
                 GraduationDate = student.GraduationDate.Date
             };
 
@@ -127,6 +128,7 @@ namespace ProdigyScout.Controllers
                 LastName = student.LastName,
                 EmailID = student.Email,
                 GPA = student.GPA,
+                Degree = student.Degree,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate
             };
@@ -180,6 +182,7 @@ namespace ProdigyScout.Controllers
                 LastName = student.LastName,
                 EmailID = student.Email,
                 GPA = student.GPA,
+                Degree = student.Degree,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate
             };

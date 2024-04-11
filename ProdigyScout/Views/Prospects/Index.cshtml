@@ -78,6 +78,7 @@
                         <p class="card-text">Graduation Date: @item.GraduationDateFormatted</p>
                         <p class="card-text">Gender: @item.Gender</p>
                         <p class="card-text">Email: @item.Email</p>
+                        <p class="card-text">Degree: @item.Degree</p>
                         <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#listStudentModal-@item.Id">More Details</button>
                     </div>
                 </div>
@@ -98,6 +99,7 @@
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Gender: <b>@item.Gender</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Email: <b>@item.Email</b></h6>
+                            <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Degree: <b>@item.Degree</b></h6>
                             <hr />
                             <form asp-action="AddOrUpdateComment" method="post">
                                 <div class="mb-3">
@@ -150,6 +152,9 @@
                 </th>
                 <th class="align-middle" scope="col">
                     Email ID
+                </th>
+                <th class="align-middle" scope="col">
+                    Degree
                 </th>
                 <th class="align-middle" scope="col">
                     <image src="./blackcomment.png" alt="Pipeline Status" width="30" height="30">
@@ -209,6 +214,9 @@
                 <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.Email)
                 </td>
+                    <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Degree)
+                    </td>
                 <td class="align-middle">
                     @if (item.ComplexDetails.Comment == null) //Not Commented
                     {
