@@ -74,6 +74,7 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <h5 class="card-title">@item.FirstName @item.LastName</h5>
+                        <img src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
                         <p class="card-text">Major: @item.Degree</p>
                         <p class="card-text">GPA: @item.GPA</p>
                         <p class="card-text">Expected Graduation: @item.GraduationDateFormatted</p>
@@ -93,6 +94,7 @@
                         </div>
 
                         <div class="modal-body">
+                            <img src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Major: <b>@item.Degree</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">GPA: <b>@item.GPA</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>
@@ -131,6 +133,9 @@
         <thead>
             <tr class="table-info">
                 <th class="align-middle" scope="col">
+                    <image src="./profilepic.png" alt="Pipeline Status" width="30" height="30">
+                </th>
+                <th class="align-middle" scope="col">
                     <image src="./blackstar.png" alt="Watch Student?" width="30" height="30">
                 </th>
                 <th class="align-middle" scope="col">
@@ -165,6 +170,9 @@
         <tbody class="table-group-divider">
     @foreach (var item in Model.Students) {
             <tr>
+                <td class="align-middle">
+                    <img src="@Url.Content(item.ImagePath)" width="30" height="30" />
+                </td>
                 <td class="align-middle">
                     @if (item.ComplexDetails == null || !item.ComplexDetails.IsWatched) //UnWatched
                     {
@@ -246,6 +254,7 @@
                                 </div>
 
                                 <div class="modal-body">
+                                    <img src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">Major: <b>@item.Degree</b></h6>
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">GPA: <b>@item.GPA</b></h6>
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>

@@ -10,6 +10,7 @@
         public float GPA { get; set; }
         public DateTime GraduationDate { get; set; }
         public string Degree { get; set; }
+        public string ImagePath { get; set; }
         public string ResumePath { get; set; }
 
         public string GraduationDateFormatted

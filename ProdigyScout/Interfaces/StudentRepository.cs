@@ -99,7 +99,8 @@ namespace ProdigyScout.Interfaces
                 GPA = studentViewModel.GPA,
                 Degree = studentViewModel.Degree?.Trim(),
                 GraduationDate = studentViewModel.GraduationDate.Date,
-                ResumePath = studentViewModel.ResumePath?.Trim()
+                ResumePath = studentViewModel.ResumePath?.Trim(),
+                ImagePath = studentViewModel?.ImagePath?.Trim(),
             };
 
             var complexDetails = new ComplexDetails
@@ -134,7 +135,7 @@ namespace ProdigyScout.Interfaces
             prospect.Degree = studentViewModel.Degree?.Trim();
             prospect.GraduationDate = studentViewModel.GraduationDate;
             prospect.ResumePath = studentViewModel.ResumePath?.Trim();
-
+            prospect.ImagePath = studentViewModel.ImagePath?.Trim();
 
             if (prospect.ComplexDetails == null)
             {

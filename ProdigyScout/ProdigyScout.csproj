@@ -31,6 +31,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Identity\Data\" />
+    <Folder Include="wwwroot\profiles\" />
     <Folder Include="wwwroot\resumes\" />
   </ItemGroup>
 

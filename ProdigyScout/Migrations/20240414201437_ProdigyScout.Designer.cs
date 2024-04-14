@@ -12,7 +12,7 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240414051740_ProdigyScout")]
+    [Migration("20240414201437_ProdigyScout")]
     partial class ProdigyScout
     {
         /// <inheritdoc />
@@ -274,6 +274,9 @@ namespace ProdigyScout.Migrations
 
                     b.Property<DateTime>("GraduationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
