@@ -67,20 +67,33 @@
 </div>
 
 <div id="cardView" style="display: none;">
-    <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="row row-cols-1 row-cols-md-4 g-1">
         @foreach (var item in Model.Students)
         {
             <div class="col">
                 <div class="card custom-card">
                     <div class="card-body">
-                        <h5 class="card-title">@item.FirstName @item.LastName</h5>
-                        <img src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
-                        <p class="card-text">Major: @item.Degree</p>
-                        <p class="card-text">GPA: @item.GPA</p>
-                        <p class="card-text">Expected Graduation: @item.GraduationDateFormatted</p>
-                        <p class="card-text">Gender: @item.Gender</p>
-                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#listStudentModal-@item.Id"><b>More Details</b></button>
-                    </div>
+                        <h5 class="card-title"><b>@item.FirstName @item.LastName</b></h5>
+                        <hr />
+                        <img class="rounded" src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
+                        <hr />
+                        <p class="card-text"><b>Major:</b> @item.Degree</p>
+                        <p class="card-text"><b>GPA:</b> @item.GPA</p>
+                        <p class="card-text"><b>Expected Graduation:</b> @item.GraduationDateFormatted</p>
+                        <p class="card-text"><b>Gender:</b> @item.Gender</p>
+                        <hr />
+                        <div class="flex-column">
+                            @if (item.ResumePath != null)
+                            {
+                                <a class="btn btn-success" asp-controller="Prospects" asp-action="Download" asp-route-path="@item.ResumePath"><b>Download Resume</b></a>
+                            }
+                            else
+                            {
+                                <span class="btn btn-danger"><b>Yet To Upload</b></span>
+                            }
+                            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#listStudentModal-@item.Id"><b>More Details</b></button>
+                        </div>
+                        </div>
                 </div>
             </div>
 
@@ -94,7 +107,8 @@
                         </div>
 
                         <div class="modal-body">
-                            <img src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
+                            <img class="rounded" src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
+                            <hr />
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Major: <b>@item.Degree</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">GPA: <b>@item.GPA</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>
@@ -171,7 +185,7 @@
     @foreach (var item in Model.Students) {
             <tr>
                 <td class="align-middle">
-                    <img src="@Url.Content(item.ImagePath)" width="30" height="30" />
+                        <img class="rounded"  src="@Url.Content(item.ImagePath)" width="30" height="30" />
                 </td>
                 <td class="align-middle">
                     @if (item.ComplexDetails == null || !item.ComplexDetails.IsWatched) //UnWatched
@@ -254,7 +268,8 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <img src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
+                                    <img class="rounded" src="@Url.Content(item.ImagePath)" alt="Student Image" height="150" />
+                                    <hr />
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">Major: <b>@item.Degree</b></h6>
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">GPA: <b>@item.GPA</b></h6>
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>
@@ -292,7 +307,7 @@
 
 <style>
     .custom-card {
-        height: 400px;
+        height: auto;
         margin: 10px;
     }
 
@@ -323,6 +338,7 @@
 </style>
 
 <script>
+    // Function to toggle view and store the preference
     function toggleView(viewId) {
         var listView = document.getElementById('listView');
         var cardView = document.getElementById('cardView');
@@ -330,9 +346,20 @@
         if (viewId === 'listView') {
             listView.style.display = 'block';
             cardView.style.display = 'none';
+            localStorage.setItem('preferredView', 'listView'); // Store preference
         } else if (viewId === 'cardView') {
             listView.style.display = 'none';
             cardView.style.display = 'block';
+            localStorage.setItem('preferredView', 'cardView'); // Store preference
         }
+    }
+
+    // Function to apply stored preference on page load
+    window.onload = function () {
+        var preferredView = localStorage.getItem('preferredView');
+        if (preferredView === 'cardView') {
+            document.getElementById('listView').style.display = 'none';
+            document.getElementById('cardView').style.display = 'block';
+        } // No need to handle 'listView' case as it's the default
     }
 </script>
