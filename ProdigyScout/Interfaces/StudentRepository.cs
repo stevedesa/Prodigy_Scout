@@ -63,8 +63,8 @@ namespace ProdigyScout.Interfaces
                 "Name [D]" => students.OrderByDescending(s => (s.FirstName + " " + s.LastName)),
                 "GPA [A]" => students.OrderBy(s => s.GPA),
                 "GPA [D]" => students.OrderByDescending(s => s.GPA),
-                "Grad Date [A]" => students.OrderBy(s => s.GraduationDate),
-                "Grad Date [D]" => students.OrderByDescending(s => s.GraduationDate),
+                "GradDate [A]" => students.OrderBy(s => s.GraduationDate),
+                "GradDate [D]" => students.OrderByDescending(s => s.GraduationDate),
                 "Prodigies" => students.OrderByDescending(s => s.ComplexDetails.IsWatched),
                 "Prospects" => students.OrderByDescending(s => s.ComplexDetails.IsPipeline),
                 _ => students.OrderByDescending(s => s.GPA)
