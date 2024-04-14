@@ -88,13 +88,12 @@ namespace ProdigyScout.Controllers
                     return View(studentViewModel);
                 }
 
-                /*var NewStudentemail = await _studentRepository.InsertStudent(studentViewModel);
-
-                if (NewStudentemail != null)
+                var existingStudent = await _studentRepository.GetStudentByEmail(studentViewModel.EmailID);
+                if (existingStudent != null)
                 {
-                    ModelState.AddModelError(string.Empty, "This Email Already Exists in our Database");
+                    ModelState.AddModelError("EmailID", "A student with this email ID already exists.");
                     return View(studentViewModel);
-                }*/
+                }
 
                 if (studentViewModel.ResumeFile != null && studentViewModel.ResumeFile.Length > 0)
                 {
@@ -162,6 +161,18 @@ namespace ProdigyScout.Controllers
 
             if (ModelState.IsValid)
             {
+                if (studentViewModel.ResumeFile != null && studentViewModel.ResumeFile.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "resumes");
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + studentViewModel.ResumeFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await studentViewModel.ResumeFile.CopyToAsync(fileStream);
+                    }
+                    studentViewModel.ResumePath = "/resumes/" + uniqueFileName;
+                }
+
                 var student = await _studentRepository.UpdateStudent(studentViewModel);
 
                 if (student == null)

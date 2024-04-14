@@ -99,7 +99,7 @@ namespace ProdigyScout.Interfaces
                 GPA = studentViewModel.GPA,
                 Degree = studentViewModel.Degree?.Trim(),
                 GraduationDate = studentViewModel.GraduationDate.Date,
-                ResumePath = studentViewModel.ResumePath?.Trim(),
+                ResumePath = studentViewModel.ResumePath?.Trim()
             };
 
             var complexDetails = new ComplexDetails
@@ -134,6 +134,7 @@ namespace ProdigyScout.Interfaces
             prospect.Degree = studentViewModel.Degree?.Trim();
             prospect.GraduationDate = studentViewModel.GraduationDate;
             prospect.ResumePath = studentViewModel.ResumePath?.Trim();
+
 
             if (prospect.ComplexDetails == null)
             {
@@ -250,6 +251,11 @@ namespace ProdigyScout.Interfaces
 
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<Prospect> GetStudentByEmail(string email)
+        {
+            return await _context.Prospect.FirstOrDefaultAsync(p => p.Email.ToLower() == email.ToLower());
         }
     }
 }

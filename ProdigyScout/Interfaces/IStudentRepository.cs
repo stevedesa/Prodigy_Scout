@@ -18,5 +18,6 @@ namespace ProdigyScout.Interfaces
         Task<bool> MarkAsNonPipeline(int studentId);
         Task<bool> MarkAsPipelineNonPipeline(int studentId, bool isPipeline);
         Task<bool> AddOrUpdateComment(int studentId, string comment);
+        Task<Prospect> GetStudentByEmail(string email);
     }
 }
