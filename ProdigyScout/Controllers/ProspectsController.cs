@@ -230,8 +230,6 @@ namespace ProdigyScout.Controllers
                 Degree = student.Degree,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate,
-                ResumePath = student.ResumePath,
-                ImagePath = student.ImagePath,
             };
 
             return View(studentViewModel);
