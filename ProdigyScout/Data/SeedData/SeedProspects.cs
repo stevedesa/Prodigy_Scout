@@ -73,6 +73,8 @@ namespace ProdigyScout.Data.SeedData
                         GPA = float.Parse(values[4]),
                         GraduationDate = DateTime.Parse(values[5]),
                         Degree = values[6],
+                        ImagePath = values[7],
+                        ResumePath = "/resumes/example.pdf"
                     };
 
                     var complexDetails = new ComplexDetails

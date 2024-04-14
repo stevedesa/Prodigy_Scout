@@ -63,6 +63,7 @@ namespace ProdigyScout.Migrations
                     GPA = table.Column<float>(type: "real", nullable: false),
                     GraduationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Degree = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ResumePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

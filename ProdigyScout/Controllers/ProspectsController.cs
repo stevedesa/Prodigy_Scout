@@ -78,32 +78,49 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath,ImageFile,ImagePath")] StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
-                if (!studentViewModel.EmailID.EndsWith(".com"))
+                // Check if ImageFile is provided and is of image type
+                if (studentViewModel.ImageFile != null && studentViewModel.ImageFile.Length > 0)
                 {
-                    ModelState.AddModelError(string.Empty, "Only Email IDs from .com Domains are allowed.");
-                    return View(studentViewModel);
+                    if (!IsImageFile(studentViewModel.ImageFile.FileName))
+                    {
+                        ModelState.AddModelError("ImageFile", "Please upload an image file.");
+                        return View(studentViewModel);
+                    }
+
+                    var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "profiles");
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + studentViewModel.ImageFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var fileStream = System.IO.File.Create(filePath))
+                    {
+                        await studentViewModel.ImageFile.CopyToAsync(fileStream);
+                    }
+
+                    studentViewModel.ImagePath = "/profiles/" + uniqueFileName;
                 }
 
-                var existingStudent = await _studentRepository.GetStudentByEmail(studentViewModel.EmailID);
-                if (existingStudent != null)
-                {
-                    ModelState.AddModelError("EmailID", "A student with this email ID already exists.");
-                    return View(studentViewModel);
-                }
-
+                // Check if ResumeFile is provided and is of PDF format
                 if (studentViewModel.ResumeFile != null && studentViewModel.ResumeFile.Length > 0)
                 {
+                    if (!IsPDFFile(studentViewModel.ResumeFile.FileName))
+                    {
+                        ModelState.AddModelError("ResumeFile", "Please upload a PDF file.");
+                        return View(studentViewModel);
+                    }
+
                     var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "resumes");
                     var uniqueFileName = Guid.NewGuid().ToString() + "_" + studentViewModel.ResumeFile.FileName;
                     var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+
+                    using (var fileStream = System.IO.File.Create(filePath))
                     {
                         await studentViewModel.ResumeFile.CopyToAsync(fileStream);
                     }
+
                     studentViewModel.ResumePath = "/resumes/" + uniqueFileName;
                 }
 
@@ -143,7 +160,7 @@ namespace ProdigyScout.Controllers
                 GPA = student.GPA,
                 Degree = student.Degree,
                 Gender = student.Gender,
-                GraduationDate = student.GraduationDate
+                GraduationDate = student.GraduationDate,
             };
 
             return View(studentViewModel);
@@ -152,7 +169,7 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath,ImageFile,ImagePath")] StudentViewModel studentViewModel)
         {
             if (id != studentViewModel.Id)
             {
@@ -161,18 +178,6 @@ namespace ProdigyScout.Controllers
 
             if (ModelState.IsValid)
             {
-                if (studentViewModel.ResumeFile != null && studentViewModel.ResumeFile.Length > 0)
-                {
-                    var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "resumes");
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + studentViewModel.ResumeFile.FileName;
-                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await studentViewModel.ResumeFile.CopyToAsync(fileStream);
-                    }
-                    studentViewModel.ResumePath = "/resumes/" + uniqueFileName;
-                }
-
                 var student = await _studentRepository.UpdateStudent(studentViewModel);
 
                 if (student == null)
@@ -209,7 +214,9 @@ namespace ProdigyScout.Controllers
                 GPA = student.GPA,
                 Degree = student.Degree,
                 Gender = student.Gender,
-                GraduationDate = student.GraduationDate
+                GraduationDate = student.GraduationDate,
+                ResumePath = student.ResumePath,
+                ImagePath = student.ImagePath,
             };
 
             return View(studentViewModel);
@@ -224,6 +231,14 @@ namespace ProdigyScout.Controllers
             if (!string.IsNullOrEmpty(student.ResumePath))
             {
                 var filePath = Path.Combine(_hostingEnvironment.WebRootPath, student.ResumePath.TrimStart('/'));
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+            if (!string.IsNullOrEmpty(student.ImagePath))
+            {
+                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, student.ImagePath.TrimStart('/'));
                 if (System.IO.File.Exists(filePath))
                 {
                     System.IO.File.Delete(filePath);
@@ -319,6 +334,20 @@ namespace ProdigyScout.Controllers
 
             var fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
+        }
+
+        // Helper method to check if the file is of image type
+        public bool IsImageFile(string fileName)
+        {
+            string extension = Path.GetExtension(fileName).ToLower();
+            return extension == ".jpg" || extension == ".jpeg" || extension == ".png" || extension == ".gif";
+        }
+
+        // Helper method to check if the file is of PDF format
+        public bool IsPDFFile(string fileName)
+        {
+            string extension = Path.GetExtension(fileName).ToLower();
+            return extension == ".pdf";
         }
     }
 }

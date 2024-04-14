@@ -272,6 +272,9 @@ namespace ProdigyScout.Migrations
                     b.Property<DateTime>("GraduationDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
