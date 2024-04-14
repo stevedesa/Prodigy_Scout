@@ -74,12 +74,11 @@
                 <div class="card custom-card">
                     <div class="card-body">
                         <h5 class="card-title">@item.FirstName @item.LastName</h5>
+                        <p class="card-text">Major: @item.Degree</p>
                         <p class="card-text">GPA: @item.GPA</p>
-                        <p class="card-text">Graduation Date: @item.GraduationDateFormatted</p>
+                        <p class="card-text">Expected Graduation: @item.GraduationDateFormatted</p>
                         <p class="card-text">Gender: @item.Gender</p>
-                        <p class="card-text">Email: @item.Email</p>
-                        <p class="card-text">Degree: @item.Degree</p>
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#listStudentModal-@item.Id">More Details</button>
+                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#listStudentModal-@item.Id"><b>More Details</b></button>
                     </div>
                 </div>
             </div>
@@ -94,7 +93,7 @@
                         </div>
 
                         <div class="modal-body">
-                            <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Major: </h6>
+                            <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Major: <b>@item.Degree</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">GPA: <b>@item.GPA</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>
                             <h6 class="modal-title" id="listStudentModalLabel-@item.Id">Gender: <b>@item.Gender</b></h6>
@@ -117,7 +116,6 @@
 
                         <div class="modal-footer d-flex justify-content-center">
                             <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a> |
                             <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                         </div>
                     </div>
@@ -142,25 +140,25 @@
                     Name
                 </th>
                 <th class="align-middle" scope="col">
-                    GPA
+                    Major
                 </th>
                 <th class="align-middle" scope="col">
-                    Grad Date
+                    Cumulative GPA
+                </th>
+                <th class="align-middle" scope="col">
+                    Expected Graduation
                 </th>
                 <th class="align-middle" scope="col">
                     Gender
                 </th>
-                <th class="align-middle" scope="col">
-                    Email ID
+                <th style="column-width:auto" class="align-middle" scope="col">
+                    Resume
                 </th>
                 <th class="align-middle" scope="col">
-                    Degree
+                    Details
                 </th>
                 <th class="align-middle" scope="col">
                     <image src="./blackcomment.png" alt="Pipeline Status" width="30" height="30">
-                </th>
-                <th class="align-middle" scope="col">
-                    More Details
                 </th>
             </tr>
         </thead>
@@ -200,9 +198,12 @@
                     }
                 </td>
                 <td class="align-middle">
-                        @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)
+                        <b>@Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</b>
                 </td>
-                    <td class="align-middle">
+                <td class="align-middle">
+                        @Html.DisplayFor(modelItem => item.Degree)
+                </td>
+                <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.GPA)
                 </td>
                 <td class="align-middle">
@@ -211,25 +212,29 @@
                 <td class="align-middle">
                         @Html.DisplayFor(modelItem => item.Gender)
                 </td>
-                <td class="align-middle">
-                        @Html.DisplayFor(modelItem => item.Email)
-                </td>
                     <td class="align-middle">
-                        @Html.DisplayFor(modelItem => item.Degree)
+                        @if (item.ResumePath != null)
+                        {
+                            <a class="btn btn-outline-success" asp-controller="Prospects" asp-action="Download" asp-route-path="@item.ResumePath"><b>Download Resume</b></a>
+                        }
+                        else
+                        {
+                            <span class="btn btn-outline-danger"><b>Yet To Upload</b></span>
+                        }
                     </td>
                 <td class="align-middle">
-                    @if (item.ComplexDetails.Comment == null) //Not Commented
-                    {
+                        <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#studentModal-@item.Id"><b>More Details</b></button>
+                </td>
+                    <td class="align-middle">
+                        @if (item.ComplexDetails.Comment == null) //Not Commented
+                        {
                             <input type="image" src="./nocomment.png" alt="Mark as Watch" width="30" height="30" class="opacity-25">
-                    }
-                    else //Commented
-                    {
+                        }
+                        else //Commented
+                        {
                             <input type="image" src="./yescomment.png" alt="Mark as Unwatch" width="30" height="30">
-                    }
-                </td>
-                <td class="align-middle">
-                        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#studentModal-@item.Id">More Details</button>
-                </td>
+                        }
+                    </td>
 
                     <div class="modal fade modal-dark" id="studentModal-@item.Id" tabindex="-1" aria-labelledby="studentModalLabel-@item.Id" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
@@ -241,7 +246,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <h6 class="modal-title" id="studentModalLabel-@item.Id">Major: </h6>
+                                    <h6 class="modal-title" id="studentModalLabel-@item.Id">Major: <b>@item.Degree</b></h6>
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">GPA: <b>@item.GPA</b></h6>
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">Grad Date: <b>@item.GraduationDateFormatted</b></h6>
                                     <h6 class="modal-title" id="studentModalLabel-@item.Id">Gender: <b>@item.Gender</b></h6>
@@ -263,7 +268,6 @@
 
                                 <div class="modal-footer d-flex justify-content-center">
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">Edit</a> |
-                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a> |
                                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                                 </div>
                             </div>

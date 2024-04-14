@@ -8,7 +8,7 @@
 <hr />
 <div class="row" style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
     <div class="col-md-4">
-        <form asp-action="Create" style="display: flex; flex-direction: column; gap: 10px;">
+        <form asp-action="Create" enctype="multipart/form-data" style=" display: flex; flex-direction: column; gap: 10px;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label>First Name</label>
@@ -44,6 +44,11 @@
                 <label>Degree</label>
                 <input asp-for="Degree" class="form-control" />
                 <span asp-validation-for="Degree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label>Upload Resume</label>
+                <input asp-for="ResumeFile" type="file" class="form-control" />
+                <span asp-validation-for="ResumeFile" class="text-danger"></span>
             </div>
             <hr />
             <div class="form-group">

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProdigyScout.Migrations
 {
     /// <inheritdoc />
-    public partial class WorkPlease : Migration
+    public partial class ProdigyScout : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,7 +62,8 @@ namespace ProdigyScout.Migrations
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GPA = table.Column<float>(type: "real", nullable: false),
                     GraduationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Degree = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Degree = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResumePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

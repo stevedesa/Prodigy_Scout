@@ -11,10 +11,12 @@ namespace ProdigyScout.Controllers
     public class ProspectsController : Controller
     {
         private readonly IStudentRepository _studentRepository;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public ProspectsController(IStudentRepository studentRepository)
+        public ProspectsController(IStudentRepository studentRepository, IWebHostEnvironment hostingEnvironment)
         {
             _studentRepository = studentRepository;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Prospects
@@ -76,7 +78,7 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath")] StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -86,12 +88,24 @@ namespace ProdigyScout.Controllers
                     return View(studentViewModel);
                 }
 
-                var NewStudentemail = await _studentRepository.InsertStudent(studentViewModel);
+                /*var NewStudentemail = await _studentRepository.InsertStudent(studentViewModel);
 
                 if (NewStudentemail != null)
                 {
                     ModelState.AddModelError(string.Empty, "This Email Already Exists in our Database");
                     return View(studentViewModel);
+                }*/
+
+                if (studentViewModel.ResumeFile != null && studentViewModel.ResumeFile.Length > 0)
+                {
+                    var uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "resumes");
+                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + studentViewModel.ResumeFile.FileName;
+                    var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await studentViewModel.ResumeFile.CopyToAsync(fileStream);
+                    }
+                    studentViewModel.ResumePath = "/resumes/" + uniqueFileName;
                 }
 
                 var student = await _studentRepository.InsertStudent(studentViewModel);
@@ -139,7 +153,7 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath")] StudentViewModel studentViewModel)
         {
             if (id != studentViewModel.Id)
             {
@@ -195,6 +209,15 @@ namespace ProdigyScout.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var student = await _studentRepository.GetStudentByID(id);
+            if (!string.IsNullOrEmpty(student.ResumePath))
+            {
+                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, student.ResumePath.TrimStart('/'));
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
             await _studentRepository.DeleteStudent(id);
             return RedirectToAction(nameof(Index));
         }
@@ -272,6 +295,19 @@ namespace ProdigyScout.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Download(string path)
+        {
+            var filePath = Path.Combine(_hostingEnvironment.WebRootPath, path.TrimStart('/'));
+
+            if (!System.IO.File.Exists(filePath))
+            {
+                return NotFound();
+            }
+
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            return File(fileBytes, "application/octet-stream", Path.GetFileName(filePath));
         }
     }
 }
