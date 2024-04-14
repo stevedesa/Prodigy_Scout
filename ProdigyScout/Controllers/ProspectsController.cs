@@ -82,6 +82,21 @@ namespace ProdigyScout.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Check if email ID ends with .COM
+                if (!studentViewModel.EmailID.EndsWith(".com"))
+                {
+                    ModelState.AddModelError(string.Empty, "Only Email IDs from .com Domains are allowed.");
+                    return View(studentViewModel);
+                }
+
+                // Check for duplicate email ID
+                var existingStudent = await _studentRepository.GetStudentByEmail(studentViewModel.EmailID);
+                if (existingStudent != null)
+                {
+                    ModelState.AddModelError("EmailID", "A student with this email ID already exists.");
+                    return View(studentViewModel);
+                }
+
                 // Check if ImageFile is provided and is of image type
                 if (studentViewModel.ImageFile != null && studentViewModel.ImageFile.Length > 0)
                 {
