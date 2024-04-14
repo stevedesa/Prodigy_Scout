@@ -16,6 +16,7 @@ namespace ProdigyScout.ViewModels
             GPA = 0;
             Degree = string.Empty;
             GraduationDate = DateTime.Today;
+            ResumePath = string.Empty;
         }
 
         public StudentViewModel(Prospect student)
@@ -30,6 +31,7 @@ namespace ProdigyScout.ViewModels
                 GPA = student.GPA;
                 GraduationDate = student.GraduationDate;
                 Degree = student.Degree;
+                ResumePath = student.ResumePath;
                 IsWatched = student.ComplexDetails != null && student.ComplexDetails.IsWatched;
                 IsPipeline = student.ComplexDetails != null && student.ComplexDetails.IsPipeline;
             }
@@ -66,6 +68,9 @@ namespace ProdigyScout.ViewModels
         [DataType(DataType.Date)]
         public DateTime GraduationDate { get; set; }
 
+        [DisplayName("Resume")]
+        public IFormFile ResumeFile { get; set; }
+
         public string GraduationDateFormatted
         {
             get { return string.Concat(GraduationDate.ToString("MMM"), " ", GraduationDate.ToString("yyyy")); }
@@ -74,6 +79,7 @@ namespace ProdigyScout.ViewModels
         public bool IsWatched { get; set; }
         public bool IsPipeline { get; set; }
         public string Comment { get; set; }
+        public string ResumePath { get; set; }
 
         public IEnumerable<Prospect> Students { get; set; }
         public IEnumerable<ComplexDetails> ComplexData { get; set; }
@@ -83,6 +89,11 @@ namespace ProdigyScout.ViewModels
         public IEnumerable<string> FilterOptions => new List<string> { "Name", "Min GPA", "Min Grad Date", "Degree" };
         public IEnumerable<string> SortOptions => new List<string> {
             "Prodigies", "Prospects", "Name [A]", "Name [D]", "GPA [A]", "GPA [D]", "GradDate [A]", "GradDate [D]" 
+        };
+        public IEnumerable<string> DegreesList => new List<string> {
+            "Biomedical Engineering", "Chemical Engineering", "Civil Engineering", "Computer Engineering",
+            "Computer Science", "Electrical Engineering", "Geological Engineering", "Industrial Engineering",
+            "Mechanical Engineering", "Metallurgical Engineering", "Mining Engineering"
         };
     }
 }

@@ -12,8 +12,8 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240410150437_WorkPlease")]
-    partial class WorkPlease
+    [Migration("20240414051740_ProdigyScout")]
+    partial class ProdigyScout
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -276,6 +276,9 @@ namespace ProdigyScout.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResumePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

@@ -18,7 +18,8 @@ namespace ProdigyScout.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var students = await _studentRepository.GetStudents("", "", "");
+            var students = await _studentRepository.GetStudents("", "", "GPA [D]");
+ 
             var complexData = await _studentRepository.GetComplexData();
 
             var homeViewModel = new StudentViewModel
