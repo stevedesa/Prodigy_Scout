@@ -107,6 +107,7 @@ namespace ProdigyScout.Interfaces
             {
                 IsWatched = studentViewModel.IsWatched,
                 IsPipeline = studentViewModel.IsPipeline,
+                Comment = studentViewModel.Comment,
                 Prospect = prospect
             };
 

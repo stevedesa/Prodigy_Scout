@@ -78,7 +78,7 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath,ImageFile,ImagePath")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath,ImageFile,ImagePath,IsWatched,IsPipeline,Comment")] StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {

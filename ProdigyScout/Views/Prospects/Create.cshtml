@@ -45,15 +45,32 @@
                 <input asp-for="Degree" class="form-control" />
                 <span asp-validation-for="Degree" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label>Upload Profile Image</label>
-                <input asp-for="ImageFile" type="file" class="form-control" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            <div class="flex-column">
+                <div class="form-group">
+                    <label>Mark as Prodigy</label>
+                    <input asp-for="IsWatched" type="checkbox" />
+                </div>
+                <div class="form-group">
+                    <label>Mark as Prospective Hire</label>
+                    <input asp-for="IsPipeline" type="checkbox" />
+                </div>
             </div>
             <div class="form-group">
-                <label>Upload Resume</label>
-                <input asp-for="ResumeFile" type="file" class="form-control" />
-                <span asp-validation-for="ResumeFile" class="text-danger"></span>
+                <label>Add Comments</label>
+                <textarea asp-for="Comment" class="form-control"></textarea>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+            <div class="flex-column">
+                <div class="form-group">
+                    <label>Upload Profile Image</label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                    <span asp-validation-for="ImageFile" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Upload Resume</label>
+                    <input asp-for="ResumeFile" type="file" class="form-control" />
+                    <span asp-validation-for="ResumeFile" class="text-danger"></span>
+                </div>
             </div>
             <hr />
             <div class="form-group">
