@@ -65,8 +65,8 @@ namespace ProdigyScout.Interfaces
                 "GPA [D]" => students.OrderByDescending(s => s.GPA),
                 "GradDate [A]" => students.OrderBy(s => s.GraduationDate),
                 "GradDate [D]" => students.OrderByDescending(s => s.GraduationDate),
-                "Prodigies" => students.OrderByDescending(s => s.ComplexDetails.IsWatched),
-                "Prospects" => students.OrderByDescending(s => s.ComplexDetails.IsPipeline),
+                "Prodigies" => students.Where(s => s.ComplexDetails.IsWatched).OrderByDescending(s => s.FirstName + " " + s.LastName),
+                "Prospects" => students.Where(s => s.ComplexDetails.IsPipeline).OrderByDescending(s => s.FirstName + " " + s.LastName),
                 _ => students.OrderByDescending(s => s.GPA)
             };
 
