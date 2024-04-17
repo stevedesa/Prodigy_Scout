@@ -1,6 +1,136 @@
 ﻿@{
     ViewData["Title"] = "Help";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Bippity Boppity Boop</p>
+<div class="my-3 py-3">
+    <h2><b>Frequently Asked Questions [FAQ]</b></h2>
+</div>
+
+<div class="bg-dark">
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <b>How do I mark a student that I'd like to add to my Watch List?</b>
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>You can mark your Watch List students as "Prodigies"</strong>
+                    Click on the <img src="~/goldstar.png" alt="Watch" width="20" height="20"> icon of the student you want to watch.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <b>How do I mark a student that I'd like to Hire?</b>
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <strong>You can mark your Prospective Hires students as "Prospects"</strong>
+                    Click on the <img src="~/yeshandshake.png" alt="Hire" width="20" height="20"> icon of the student you want to hire.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <b>How do I add a new student to the list of prospects?</b>
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    You can add a new student by clicking the "Create New Student" button at the top of the page. This button redirects you to a page where you can input the details of the new student.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    <b>How can I sort the list of prospects?</b>
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    You can sort the list of prospects by selecting an option from the "Sort By" dropdown menu and clicking the "Sort" button. This allows you to organize the list based on different criteria such as name, GPA, graduation date, etc.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    <b>Is there a way to filter the list of prospects?</b>
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Yes, you can filter the list of prospects by selecting filter criteria from the "Filter By" dropdown menu and entering a search term in the adjacent input field. After selecting your criteria and entering the search term, click the "Search" button to apply the filter.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    <b>How do I change the view of the list of prospects?</b>
+                </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    You can switch between list view and card view by clicking the respective buttons labeled "List" and "Card" under the "View" section. List view displays the student information in a tabular format, while card view shows each student as a separate card with detailed information.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+                    <b>What actions can I perform on each student in the list?</b>
+                </button>
+            </h2>
+            <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    For each student in the list, you can perform various actions such as marking them as watched/unwatched, marking them as part of the pipeline/non-pipeline, downloading their resume (if available), viewing more details, and adding/editing comments.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+                    <b>How do I mark a student as watched/unwatched or part of the pipeline/non-pipeline?</b>
+                </button>
+            </h2>
+            <div id="collapseEight" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    To mark a student, you can click on the corresponding icon next to their information. For example, clicking on the gold star icon marks a student as watched, while clicking on the handshake icon marks them as part of the pipeline.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseNine" aria-expanded="false" aria-controls="collapseNine">
+                    <b>Can I download a student's resume?</b>
+                </button>
+            </h2>
+            <div id="collapseNine" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    Yes, if a student has uploaded their resume, you can download it by clicking the "Download Resume" button next to their information. If the student hasn't uploaded a resume yet, it will indicate that it's yet to be uploaded.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+                    <b>How do I view more details about a specific student?</b>
+                </button>
+            </h2>
+            <div id="collapseTen" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    To view more details about a student, click on the "More Details" button next to their information. This opens a modal window displaying additional information such as their email, major, GPA, graduation date, and allows you to add or edit comments about the student.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
