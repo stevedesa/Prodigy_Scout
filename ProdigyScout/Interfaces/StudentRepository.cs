@@ -135,22 +135,6 @@ namespace ProdigyScout.Interfaces
             prospect.GPA = studentViewModel.GPA;
             prospect.Degree = studentViewModel.Degree?.Trim();
             prospect.GraduationDate = studentViewModel.GraduationDate;
-            prospect.ResumePath = studentViewModel.ResumePath?.Trim();
-            prospect.ImagePath = studentViewModel.ImagePath?.Trim();
-
-            if (prospect.ComplexDetails == null)
-            {
-                prospect.ComplexDetails = new ComplexDetails { 
-                    ProspectId = studentViewModel.Id, 
-                    IsWatched = studentViewModel.IsWatched,
-                    IsPipeline= studentViewModel.IsPipeline,
-                };
-            }
-            else
-            {
-                prospect.ComplexDetails.IsWatched = studentViewModel.IsWatched;
-                prospect.ComplexDetails.IsPipeline = studentViewModel.IsPipeline;
-            }
 
             _context.Update(prospect);
             await _context.SaveChangesAsync();

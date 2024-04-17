@@ -4,6 +4,7 @@ using Microsoft.Data.SqlClient;
 using ProdigyScout.Interfaces;
 using ProdigyScout.Models;
 using ProdigyScout.ViewModels;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
 namespace ProdigyScout.Controllers
@@ -185,6 +186,8 @@ namespace ProdigyScout.Controllers
                 Degree = student.Degree,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate,
+                ImagePath = student.ImagePath,
+                ResumePath = student.ResumePath
             };
 
             return View(studentViewModel);
