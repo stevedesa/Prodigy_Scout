@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProdigyScout.Data;
 using ProdigyScout.Data.SeedData;
 using ProdigyScout.Interfaces;
+using ProdigyScout.Repository;
 using ProdigyScout.Services;
 using System.Reflection;
 

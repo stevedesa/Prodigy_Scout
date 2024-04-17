@@ -1,9 +1,9 @@
 ﻿using ProdigyScout.Models;
 using ProdigyScout.Tests.Fixture;
 using ProdigyScout.Tests.Helpers;
-using ProdigyScout.Interfaces;
 using ProdigyScout.ViewModels;
 using static ProdigyScout.Helpers.Enums;
+using ProdigyScout.Repository;
 
 namespace ProdigyScout.Tests
 {
