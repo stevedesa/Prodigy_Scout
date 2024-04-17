@@ -87,28 +87,28 @@
                             {
                                 <form asp-action="MarkAsWatch" method="post">
                                     <input type="hidden" name="id" value="@item.Id" />
-                                    <input type="image" src="./unstarred.png" alt="Mark as Watch" width="30" height="30" class="opacity-25">
+                                    <input type="image" src="./unstarred.png" title="Click Here!" alt="Mark as Watch" width="30" height="30" class="opacity-25">
                                 </form>
                             }
                             else //Watched
                             {
                                 <form asp-action="MarkAsUnwatch" method="post">
                                     <input type="hidden" name="id" value="@item.Id" />
-                                    <input type="image" src="./goldstar.png" alt="Mark as Unwatch" width="30" height="30">
+                                    <input type="image" src="./goldstar.png" title="Click Here!" alt="Mark as Unwatch" width="30" height="30">
                                 </form>
                             }
                             @if (item.ComplexDetails == null || !item.ComplexDetails.IsPipeline) //NonPipeline
                             {
                                 <form asp-action="MarkAsPipeline" method="post">
                                     <input type="hidden" name="id" value="@item.Id" />
-                                    <input type="image" src="./nohandshake.png" alt="Mark as Pipeline" width="30" height="30" class="opacity-50">
+                                    <input type="image" src="./nohandshake.png" title="Click Here!" alt="Mark as Pipeline" width="30" height="30" class="opacity-50">
                                 </form>
                             }
                             else //Pipeline
                             {
                                 <form asp-action="MarkAsNonPipeline" method="post">
                                     <input type="hidden" name="id" value="@item.Id" />
-                                    <input type="image" src="./yeshandshake.png" alt="Mark as Non Pipeline" width="30" height="30">
+                                    <input type="image" src="./yeshandshake.png" title="Click Here!" alt="Mark as Non Pipeline" width="30" height="30">
                                 </form>
                             }
                         </div>
@@ -222,14 +222,14 @@
                     {
                         <form asp-action="MarkAsWatch" method="post">
                             <input type="hidden" name="id" value="@item.Id" />
-                            <input type="image" src="./unstarred.png" alt="Mark as Watch" width="30" height="30" class="opacity-25">
+                            <input type="image" src="./unstarred.png" title="Click Here!" alt="Mark as Watch" width="30" height="30" class="opacity-25">
                         </form>
                     }
                     else //Watched
                     {
                         <form asp-action="MarkAsUnwatch" method="post"> 
                             <input type="hidden" name="id" value="@item.Id" />
-                            <input type="image" src="./goldstar.png" alt="Mark as Unwatch" width="30" height="30">
+                            <input type="image" src="./goldstar.png" title="Click Here!" alt="Mark as Unwatch" width="30" height="30">
                         </form>
                     }
                 </td>
@@ -238,14 +238,14 @@
                     {
                     <form asp-action="MarkAsPipeline" method="post">
                         <input type="hidden" name="id" value="@item.Id" />
-                        <input type="image" src="./nohandshake.png" alt="Mark as Pipeline" width="30" height="30" class="opacity-50">
+                        <input type="image" src="./nohandshake.png" title="Click Here!" alt="Mark as Pipeline" width="30" height="30" class="opacity-50">
                     </form>
                     }
                     else //Pipeline
                     {
                     <form asp-action="MarkAsNonPipeline" method="post">
                         <input type="hidden" name="id" value="@item.Id" />
-                        <input type="image" src="./yeshandshake.png" alt="Mark as Non Pipeline" width="30" height="30">
+                        <input type="image" src="./yeshandshake.png" title="Click Here!" alt="Mark as Non Pipeline" width="30" height="30">
                     </form>
                     }
                 </td>

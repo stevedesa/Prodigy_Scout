@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProdigyScout.Data;
+using ProdigyScout.Interfaces;
 using ProdigyScout.Models;
 using ProdigyScout.ViewModels;
 
-namespace ProdigyScout.Interfaces
+namespace ProdigyScout.Repository
 {
     public class StudentRepository : IStudentRepository, IDisposable
     {
@@ -52,15 +53,15 @@ namespace ProdigyScout.Interfaces
                         }
                         break;
                     case "Degree":
-                        students = students.Where(s => (s.Degree).Contains(searchTerm));
+                        students = students.Where(s => s.Degree.Contains(searchTerm));
                         break;
                 }
             }
 
             students = sortOrder switch
             {
-                "Name [A]" => students.OrderBy(s => (s.FirstName + " " + s.LastName)),
-                "Name [D]" => students.OrderByDescending(s => (s.FirstName + " " + s.LastName)),
+                "Name [A]" => students.OrderBy(s => s.FirstName + " " + s.LastName),
+                "Name [D]" => students.OrderByDescending(s => s.FirstName + " " + s.LastName),
                 "GPA [A]" => students.OrderBy(s => s.GPA),
                 "GPA [D]" => students.OrderByDescending(s => s.GPA),
                 "GradDate [A]" => students.OrderBy(s => s.GraduationDate),
@@ -135,22 +136,6 @@ namespace ProdigyScout.Interfaces
             prospect.GPA = studentViewModel.GPA;
             prospect.Degree = studentViewModel.Degree?.Trim();
             prospect.GraduationDate = studentViewModel.GraduationDate;
-            prospect.ResumePath = studentViewModel.ResumePath?.Trim();
-            prospect.ImagePath = studentViewModel.ImagePath?.Trim();
-
-            if (prospect.ComplexDetails == null)
-            {
-                prospect.ComplexDetails = new ComplexDetails { 
-                    ProspectId = studentViewModel.Id, 
-                    IsWatched = studentViewModel.IsWatched,
-                    IsPipeline= studentViewModel.IsPipeline,
-                };
-            }
-            else
-            {
-                prospect.ComplexDetails.IsWatched = studentViewModel.IsWatched;
-                prospect.ComplexDetails.IsPipeline = studentViewModel.IsPipeline;
-            }
 
             _context.Update(prospect);
             await _context.SaveChangesAsync();

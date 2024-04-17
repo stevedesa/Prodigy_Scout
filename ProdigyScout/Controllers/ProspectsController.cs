@@ -4,6 +4,8 @@ using Microsoft.Data.SqlClient;
 using ProdigyScout.Interfaces;
 using ProdigyScout.Models;
 using ProdigyScout.ViewModels;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace ProdigyScout.Controllers
 {
@@ -82,6 +84,14 @@ namespace ProdigyScout.Controllers
         {
             if (ModelState.IsValid)
             {
+                Regex onlyLettersRegex = new Regex("^[a-zA-Z]+$");
+
+                if (!onlyLettersRegex.IsMatch(studentViewModel.FirstName) || !onlyLettersRegex.IsMatch(studentViewModel.LastName))
+                {
+                    ModelState.AddModelError("", "First name and last name must contain only letters.");
+                    return View(studentViewModel);
+                }
+
                 // Check if email ID ends with .COM
                 if (!studentViewModel.EmailID.EndsWith(".com"))
                 {

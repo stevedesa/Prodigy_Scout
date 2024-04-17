@@ -70,11 +70,11 @@ namespace ProdigyScout.ViewModels
         [DataType(DataType.Date)]
         public DateTime GraduationDate { get; set; }
 
-        [Required]
+        /*[Required]*/
         [DisplayName("Resume")]
         public IFormFile ResumeFile { get; set; }
 
-        [Required]
+        /*[Required]*/
         [DisplayName("Image")]
         public IFormFile ImageFile { get; set; }
 
