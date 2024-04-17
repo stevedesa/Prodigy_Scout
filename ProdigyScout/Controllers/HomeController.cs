@@ -31,7 +31,7 @@ namespace ProdigyScout.Controllers
             return View(homeViewModel);
         }
 
-        public IActionResult Privacy()
+        public IActionResult Help()
         {
             return View();
         }

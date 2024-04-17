@@ -26,12 +26,13 @@
                         <a asp-area="" asp-controller="Home" asp-action="Index" class="btn btn-outline-light me-2"
                            style="display: flex; justify-content: center; align-items: center;">Home</a>
                     </li>
-                    <li><a asp-area="" asp-controller="Prospects" class="btn btn-outline-light me-2" 
-                            style="display: flex; justify-content: center; align-items: center;">List of Prospects</a>
+                    <li>
+                        <a asp-area="" asp-controller="Prospects" asp-action="Index" class="btn btn-outline-light me-2"
+                           style="display: flex; justify-content: center; align-items: center;">List of Prospects</a>
                     </li>
                     <li>
-                        <a asp-area="" asp-controller="Home" asp-action="Privacy" class="btn btn-outline-light me-2"
-                           style="display: flex; justify-content: center; align-items: center;">Privacy</a>
+                        <a asp-area="" asp-controller="Home" asp-action="Help" class="btn btn-outline-light me-2"
+                           style="display: flex; justify-content: center; align-items: center;">Help</a>
                     </li>
                 </ul>
 
@@ -58,8 +59,8 @@
         <footer class="py-2 my-0">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link px-2 text-white">Home</a></li>
-                <li class="nav-item"><a a asp-area="" asp-controller="Prospects" class="nav-link px-2 text-white">List of Prospects</a></li>
-                <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Privacy" class="nav-link px-2 text-white">Privacy</a></li>
+                <li class="nav-item"><a a asp-area="" asp-controller="Prospects" asp-action="Index" class="nav-link px-2 text-white">List of Prospects</a></li>
+                <li class="nav-item"><a asp-area="" asp-controller="Home" asp-action="Help" class="nav-link px-2 text-white">Help</a></li>
             </ul>
             <p class="text-center text-secondary">© 2024 - Prodigy Scout</p>
         </footer>
