@@ -18,7 +18,7 @@ namespace ProdigyScout.ViewModels
             GraduationDate = DateTime.Today;
             ResumePath = string.Empty;
             ImagePath = string.Empty;
-            LinkedInLink = "https://";
+            LinkedInLink = string.Empty;
         }
 
         public StudentViewModel(Prospect student)
