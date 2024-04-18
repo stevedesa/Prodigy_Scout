@@ -64,7 +64,8 @@ namespace ProdigyScout.Migrations
                     GraduationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Degree = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ResumePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ResumePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LinkedInLink = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

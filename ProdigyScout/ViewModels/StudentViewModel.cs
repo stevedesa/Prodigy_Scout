@@ -18,6 +18,7 @@ namespace ProdigyScout.ViewModels
             GraduationDate = DateTime.Today;
             ResumePath = string.Empty;
             ImagePath = string.Empty;
+            LinkedInLink = "https://";
         }
 
         public StudentViewModel(Prospect student)
@@ -32,6 +33,7 @@ namespace ProdigyScout.ViewModels
                 GPA = student.GPA;
                 GraduationDate = student.GraduationDate;
                 Degree = student.Degree;
+                LinkedInLink = student.LinkedInLink;
                 ResumePath = student.ResumePath;
                 ImagePath = student.ImagePath;
                 IsWatched = student.ComplexDetails != null && student.ComplexDetails.IsWatched;
@@ -77,6 +79,10 @@ namespace ProdigyScout.ViewModels
         /*[Required]*/
         [DisplayName("Image")]
         public IFormFile ImageFile { get; set; }
+
+        [Required]
+        [DisplayName("LinkedIn")]
+        public string LinkedInLink { get; set; }
 
         public string GraduationDateFormatted
         {

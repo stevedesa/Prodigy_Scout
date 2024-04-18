@@ -65,7 +65,8 @@ namespace ProdigyScout.Controllers
                 GPA = student.GPA,
                 Gender = student.Gender,
                 Degree = student.Degree,
-                GraduationDate = student.GraduationDate.Date
+                GraduationDate = student.GraduationDate.Date,
+                LinkedInLink = student.LinkedInLink,
             };
 
             return View(studentViewModel);
@@ -80,7 +81,7 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath,ImageFile,ImagePath,IsWatched,IsPipeline,Comment")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,LinkedInLink,ResumeFile,ResumePath,ImageFile,ImagePath,IsWatched,IsPipeline,Comment")] StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -186,6 +187,7 @@ namespace ProdigyScout.Controllers
                 Degree = student.Degree,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate,
+                LinkedInLink = student.LinkedInLink,
             };
 
             return View(studentViewModel);
@@ -194,7 +196,7 @@ namespace ProdigyScout.Controllers
         // POST: Prospects/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,ResumeFile,ResumePath,ImageFile,ImagePath")] StudentViewModel studentViewModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,EmailID,Gender,GPA,GraduationDate,Degree,LinkedInLink,ResumeFile,ResumePath,ImageFile,ImagePath")] StudentViewModel studentViewModel)
         {
             if (id != studentViewModel.Id)
             {
@@ -240,6 +242,7 @@ namespace ProdigyScout.Controllers
                 Degree = student.Degree,
                 Gender = student.Gender,
                 GraduationDate = student.GraduationDate,
+                LinkedInLink = student.LinkedInLink
             };
 
             return View(studentViewModel);

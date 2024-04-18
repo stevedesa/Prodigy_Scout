@@ -100,6 +100,7 @@ namespace ProdigyScout.Repository
                 GPA = studentViewModel.GPA,
                 Degree = studentViewModel.Degree?.Trim(),
                 GraduationDate = studentViewModel.GraduationDate.Date,
+                LinkedInLink = studentViewModel.LinkedInLink?.Trim(),
                 ResumePath = studentViewModel.ResumePath?.Trim(),
                 ImagePath = studentViewModel?.ImagePath?.Trim(),
             };
@@ -136,6 +137,7 @@ namespace ProdigyScout.Repository
             prospect.GPA = studentViewModel.GPA;
             prospect.Degree = studentViewModel.Degree?.Trim();
             prospect.GraduationDate = studentViewModel.GraduationDate;
+            prospect.LinkedInLink = studentViewModel.LinkedInLink?.Trim();
 
             _context.Update(prospect);
             await _context.SaveChangesAsync();

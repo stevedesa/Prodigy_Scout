@@ -74,7 +74,8 @@ namespace ProdigyScout.Data.SeedData
                         GraduationDate = DateTime.Parse(values[5]),
                         Degree = values[6],
                         ImagePath = values[7],
-                        ResumePath = "/resumes/example.pdf"
+                        ResumePath = "/resumes/example.pdf",
+                        LinkedInLink = "https://www.linkedin.com/in/johnny-sins-a3571421b/",
                     };
 
                     var complexDetails = new ComplexDetails

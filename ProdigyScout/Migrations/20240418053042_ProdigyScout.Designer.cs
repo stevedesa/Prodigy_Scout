@@ -12,7 +12,7 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240414204003_ProdigyScout")]
+    [Migration("20240418053042_ProdigyScout")]
     partial class ProdigyScout
     {
         /// <inheritdoc />
@@ -279,6 +279,9 @@ namespace ProdigyScout.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkedInLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ResumePath")
