@@ -12,7 +12,7 @@ using ProdigyScout.Data;
 namespace ProdigyScout.Migrations
 {
     [DbContext(typeof(ProdigyScoutContext))]
-    [Migration("20240418053042_ProdigyScout")]
+    [Migration("20240418222729_ProdigyScout")]
     partial class ProdigyScout
     {
         /// <inheritdoc />
