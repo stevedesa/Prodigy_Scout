@@ -114,9 +114,21 @@
                         </div>
                         <hr />
                         <div class="flex-column">
+                            @if (item.LinkedInLink == null) // No LinkedIn
+                            {
+                                <a href="#" onclick="return false;">
+                                    <img src="./blacklinkedin.png" alt="N" width="30" height="30" class="opacity-25">
+                                </a>
+                            }
+                            else // LinkedIn
+                            {
+                                <a href="@item.LinkedInLink" title="Click To Open!" target="_blank">
+                                    <img src="./linkedin.png" alt="Y" width="38" height="38">
+                                </a>
+                            }
                             @if (item.ResumePath != null)
                             {
-                                <a href="@item.ResumePath" target="_blank" class="btn btn-outline-success"><b>View Resume</b></a>
+                                <a href="@item.ResumePath" target="_blank" class="btn btn-success"><b>View Resume</b></a>
                             }
                             else
                             {
@@ -152,7 +164,7 @@
                                     <textarea class="form-control" id="comment" name="Comment" rows="3">@item.ComplexDetails.Comment</textarea>
                                     @if (item.ComplexDetails.LastCommentEdited.Year > 2023)
                                     {
-                                        <label><i>Last edited: @item.ComplexDetails.LastCommentEdited.ToString("yyyy-MM-dd HH:mm:ss")</i></label>
+                                        <label><i>Last edited: Steve de Sa: @item.ComplexDetails.LastCommentEdited.ToString("yyyy-MM-dd HH:mm:ss")</i></label>
                                     }
                                 </div>
                                 <input type="hidden" name="id" value="@item.Id" />
@@ -329,7 +341,7 @@
                                         <textarea class="form-control" id="comment" name="Comment" rows="3">@item.ComplexDetails.Comment</textarea>
                                         @if (item.ComplexDetails.LastCommentEdited.Year > 2023)
                                         {
-                                            <label><i>Last edited: @item.ComplexDetails.LastCommentEdited.ToString("yyyy-MM-dd HH:mm:ss")</i></label>
+                                             <label><i>Last edited: Steve de Sa: @item.ComplexDetails.LastCommentEdited.ToString("yyyy-MM-dd HH:mm:ss")</i></label>
                                         }
                                     </div>
                                     <input type="hidden" name="id" value="@item.Id" />
